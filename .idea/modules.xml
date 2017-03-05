@@ -2,7 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/COMP313_002_F2017_Team2.iml" filepath="$PROJECT_DIR$/COMP313_002_F2017_Team2.iml" />
       <module fileurl="file://$PROJECT_DIR$/EasyasPI.iml" filepath="$PROJECT_DIR$/EasyasPI.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>
