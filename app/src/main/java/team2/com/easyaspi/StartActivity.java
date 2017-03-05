@@ -10,7 +10,6 @@ package team2.com.easyaspi;
 
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.preference.DialogPreference;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -38,6 +37,7 @@ public class StartActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         finish();
+                        moveTaskToBack(true); // Completely closes application
                     }
                 })
                 // If no
