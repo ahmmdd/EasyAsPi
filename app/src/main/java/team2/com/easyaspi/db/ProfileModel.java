@@ -1,3 +1,5 @@
+package team2.com.easyaspi.db;
+
 /**
  * Created by Dominic Lau on 2017-03-05.
  */

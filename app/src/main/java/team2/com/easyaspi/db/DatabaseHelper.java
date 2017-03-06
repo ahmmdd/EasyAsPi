@@ -1,9 +1,11 @@
+package team2.com.easyaspi.db;
+
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 /**
- * File Name: DatabaseHelper.java
+ * File Name: team2.com.easyaspi.db.DatabaseHelper.java
  * Created by Dominic Lau on 2017-03-04.
  * Description: This java class will handle the database
  */
@@ -11,19 +13,19 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class DatabaseHelper extends SQLiteOpenHelper{
 
     //Delcaring constant variables
-    private static final String DATABASE_NAME = "EasyAsPi.db";
+    public static final String DATABASE_NAME = "EasyAsPi.db";
     //Database table profile
-    private static final String PROFILE_TABLE_NAME = "profile";
-    private static final String PROFILE_ID = "id";
-    private static final String PROFILE_NAME = "name";
+    public static final String PROFILE_TABLE_NAME = "profile";
+    public static final String PROFILE_ID = "id";
+    public static final String PROFILE_NAME = "name";
     //Database table practice
-    private static final String PRACTICE_TABLE_NAME = "practice";
-    private static final String PRACTICE_PRACTICE_ID = "practiceId";
-    private static final String PRACTICE_QUESTION = "question";
+    public static final String PRACTICE_TABLE_NAME = "practice";
+    public static final String PRACTICE_PRACTICE_ID = "practiceId";
+    public static final String PRACTICE_QUESTION = "question";
     //Database table question
-    private static final String LESSON_TABLE_NAME = "lesson";
-    private static final String LESSON_LESSON_ID = "lessonId";
-    private static final String LESSON_LESSON = "lesson;";
+    public static final String LESSON_TABLE_NAME = "lesson";
+    public static final String LESSON_LESSON_ID = "lessonId";
+    public static final String LESSON_LESSON = "lesson;";
 
     //Create Table Statement - Profile
     private static final String CREATE_TABLE_PROFILE = "CREATE TABLE " + PROFILE_TABLE_NAME + "(" +
@@ -36,6 +38,15 @@ public class DatabaseHelper extends SQLiteOpenHelper{
     //Create Table Statement - Practice
     private static final String CREATE_TABLE_PRACTICE = "CREATE TABLE " + PRACTICE_TABLE_NAME + "(" +
             PRACTICE_PRACTICE_ID + " INTEGER PRIMARY KEY," + PRACTICE_QUESTION + " BLOB" + ")";
+
+    private static DatabaseHelper instance;
+    public static synchronized DatabaseHelper getHelper(Context context){
+        if (instance == null)
+        {
+            instance = new DatabaseHelper(context);
+        }
+        return instance;
+    }
 
     //Constructor
     public DatabaseHelper (Context context){
