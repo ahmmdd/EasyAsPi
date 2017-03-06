@@ -14,6 +14,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
     private static final String DATABASE_NAME = "EasyAsPi.db";
     //Database table profile
     private static final String PROFILE_TABLE_NAME = "profile";
+    private static final String PROFILE_ID = "id";
     private static final String PROFILE_NAME = "name";
     //Database table practice
     private static final String PRACTICE_TABLE_NAME = "practice";
@@ -26,7 +27,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
 
     //Create Table Statement - Profile
     private static final String CREATE_TABLE_PROFILE = "CREATE TABLE " + PROFILE_TABLE_NAME + "(" +
-            PRACTICE_PRACTICE_ID + " INTEGER PRIMARY KEY," + PRACTICE_QUESTION + " TEXT" + ");";
+            PROFILE_ID + " INTEGER PRIMARY KEY," + PROFILE_NAME + " TEXT" + ");";
 
     //Create Table Statement - Lesson
     private static final String CREATE_TABLE_LESSON = "CREATE TABLE " + LESSON_TABLE_NAME + "(" +
