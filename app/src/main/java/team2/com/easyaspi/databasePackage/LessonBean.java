@@ -43,8 +43,8 @@ public class LessonBean implements Serializable {
         this.id = id;
     }
 
-    public void setChapter(int chapter){
-        this.chapter = chapter;
+    public void setChapter(String chapter){
+        this.chapter = Integer.parseInt(chapter);
     }
 
     public void setChaptername(String chaptername){
