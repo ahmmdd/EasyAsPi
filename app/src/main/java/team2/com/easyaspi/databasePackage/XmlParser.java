@@ -12,14 +12,37 @@ import org.xmlpull.v1.XmlPullParserException;
 import org.xmlpull.v1.XmlPullParserFactory;
 
 import java.io.IOException;
+import java.io.InputStream;
 
 public class XmlParser {
-    public static void main (String args[]) throws XmlPullParserException, IOException{
-        // Create new instance of the XML Pull Parser in XMPULL V1 API
-        XmlPullParserFactory factory = XmlPullParserFactory.newInstance();
-        // Specifies that the parser produced by factory will be validating
-        factory.setNamespaceAware(true);
-        // Creating new instance of a XML Pull Parser using the currently configured factory features.
-        XmlPullParser xpp = factory.newPullParser();
+    public LessonBean LessonParser(InputStream inputStream) throws XmlPullParserException, IOException {
+        // Create a null Lesson object
+        LessonBean lesson = null;
+        try {
+            // Create new instance of the XML Pull Parser in XMPULL V1 API
+            XmlPullParserFactory factory = XmlPullParserFactory.newInstance();
+            // Specifies that the parser produced by factory will be validating
+            factory.setNamespaceAware(true);
+            // Creating new instance of a XML Pull Parser using the currently configured factory features.
+            XmlPullParser xpp = factory.newPullParser();
+            // Set Input source
+            xpp.setInput(inputStream, null);
+            // Get type of event
+            int event = xpp.getEventType();
+            while (event != XmlPullParser.END_DOCUMENT){
+                // Switch statement checking event type
+                switch(event){
+                    case XmlPullParser.START_TAG:
+                        break;
+                    case XmlPullParser.END_TAG:
+                }
+                // Go to next tag
+                event = xpp.next();
+            }
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+        return lesson;
     }
 }
