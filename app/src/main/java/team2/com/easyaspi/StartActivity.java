@@ -16,6 +16,13 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
 
+import org.xmlpull.v1.XmlPullParserException;
+
+import java.io.IOException;
+import java.io.InputStream;
+
+import team2.com.easyaspi.databasePackage.*;
+
 public class StartActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +30,16 @@ public class StartActivity extends AppCompatActivity {
         // To Remove Status Bar
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_start);
+
+        InputStream is = getApplicationContext().getResources().openRawResource(R.xml.grade1_lessons);
+        XmlParser parser = new XmlParser();
+        try {
+            parser.GradeParser(is);
+        } catch (XmlPullParserException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     // When Back Button is pressed

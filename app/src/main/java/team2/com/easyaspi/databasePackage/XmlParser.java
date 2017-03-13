@@ -7,21 +7,27 @@ package team2.com.easyaspi.databasePackage;
 *   Last Modified By: Taera Kwon
  */
 
+import android.util.Log;
+
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 import org.xmlpull.v1.XmlPullParserFactory;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.HashMap;
 import java.util.List;
 
 public class XmlParser {
-    public List<LessonBean> LessonParser(InputStream inputStream) throws XmlPullParserException, IOException {
-        // Create a null Lesson object
-        List<LessonBean> lessonList = null;
+    public HashMap<String, List> GradeParser(InputStream inputStream) throws XmlPullParserException, IOException {
+        // Create a null Hash, and two list objects
+        HashMap<String, List> hash = null;
+        List<TopicBean> topicList = null;
+        List<ChapterBean> chapterList = null;
         try {
             // New Lesson Object
-            LessonBean lesson = new LessonBean();
+            TopicBean topic = new TopicBean();
+            ChapterBean chapter = new ChapterBean();
             // Create new instance of the XML Pull Parser in XMPULL V1 API
             XmlPullParserFactory factory = XmlPullParserFactory.newInstance();
             // Specifies that the parser produced by factory will be validating
@@ -41,22 +47,50 @@ public class XmlParser {
                         // If tag is "chapter"
                         if (tagName.equals("chapter")){
                             // Set chapter properties
-                            lesson.setChapter(xpp.getAttributeValue(null, "number"));
-                            lesson.setChaptername(xpp.getAttributeValue(null, "name"));
+                            chapter.setChapter(Integer.parseInt(xpp.getAttributeValue(null, "number")));
+                            chapter.setChaptername(xpp.getAttributeValue(null, "name"));
+                            // Set topic properties
+                            topic.setChapter(chapter.getChapter());
+                            topic.setChaptername(chapter.getChaptername());
+                            Log.d("Chapter", chapter.getChaptername());
                             break;
                         } else if (tagName.equals("topic")){
                             // Set topic properties
-
+                            topic.setTopicid(xpp.getAttributeValue(null, "id"));
+                            topic.setTopicname(xpp.getAttributeValue(null, "name"));
+                            break;
+                        } else if (tagName.equals("image")){
+                            // Set image properties
+                            topic.setImageaddress(xpp.getText());
+                            break;
+                        } else if (tagName.equals("instruction")){
+                            // Set instruction properties
+                            topic.setInstruction(xpp.getText());
+                            break;
                         }
                     case XmlPullParser.END_TAG:
+                        // If tag is </topic>
+                        if (tagName.equals("topic")){
+                            // Adds topic object to topicList
+                            topicList.add(topic);
+                            topic = null;
+                        } else if (tagName.equals("chapter")){
+                            // Adds chapter object to chapterList
+                            chapterList.add(chapter);
+                            // Set chapter object to null
+                            chapter = null;
+                        }
                 }
                 // Go to next tag
                 event = xpp.next();
             }
+            // Add chapterList and topicList to hash
+            hash.put("Chapters", chapterList);
+            hash.put("Topics", topicList);
         }
         catch (Exception e){
             e.printStackTrace();
         }
-        return lessonList;
+        return hash;
     }
 }
