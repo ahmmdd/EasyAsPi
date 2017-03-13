@@ -18,10 +18,11 @@ import android.view.WindowManager;
 
 import org.xmlpull.v1.XmlPullParserException;
 
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.BufferedReader;
 
-import team2.com.easyaspi.databasePackage.*;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+
 
 public class StartActivity extends AppCompatActivity {
     @Override
@@ -31,15 +32,8 @@ public class StartActivity extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_start);
 
-        InputStream is = getApplicationContext().getResources().openRawResource(R.xml.grade1_lessons);
-        XmlParser parser = new XmlParser();
-        try {
-            parser.GradeParser(is);
-        } catch (XmlPullParserException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        InputStream is = getResources().openRawResource(R.xml.grade1_lessons);
+        BufferedReader buffer = new BufferedReader(new InputStreamReader(is));
     }
 
     // When Back Button is pressed
