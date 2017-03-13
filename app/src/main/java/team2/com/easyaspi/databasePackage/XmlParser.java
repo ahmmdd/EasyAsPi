@@ -1,4 +1,4 @@
-package team2.com.easyaspi;
+package team2.com.easyaspi.databasePackage;
 
 /*
 *   Name: XmlParser.java
@@ -12,7 +12,6 @@ import org.xmlpull.v1.XmlPullParserException;
 import org.xmlpull.v1.XmlPullParserFactory;
 
 import java.io.IOException;
-import java.io.StringReader;
 
 public class XmlParser {
     public static void main (String args[]) throws XmlPullParserException, IOException{
