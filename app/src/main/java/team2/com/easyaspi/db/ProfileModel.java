@@ -9,6 +9,13 @@ public class ProfileModel {
     private int id;
     private String name;
 
+    public ProfileModel(){}
+
+    public ProfileModel(int id, String name){
+        this.id = id;
+        this.name = name;
+    }
+
     public int getId() {
         return id;
     }

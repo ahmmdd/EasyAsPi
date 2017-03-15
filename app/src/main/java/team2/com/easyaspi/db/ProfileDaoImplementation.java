@@ -1,5 +1,7 @@
 package team2.com.easyaspi.db;
 
+import android.database.sqlite.SQLiteDatabase;
+
 import java.util.List;
 
 /**
@@ -7,9 +9,10 @@ import java.util.List;
  */
 
 public class ProfileDaoImplementation implements IProfileDao {
+    public SQLiteDatabase db;
     @Override
     public void add(ProfileModel profile) {
-
+       
     }
 
     @Override
