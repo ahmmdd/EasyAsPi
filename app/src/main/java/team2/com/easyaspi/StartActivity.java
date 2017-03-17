@@ -32,8 +32,8 @@ public class StartActivity extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_start);
 
-        InputStream is = getResources().openRawResource(R.xml.grade1_lessons);
-        BufferedReader buffer = new BufferedReader(new InputStreamReader(is));
+        //InputStream is = getResources().openRawResource(R.xml.grade1_lessons);
+        //BufferedReader buffer = new BufferedReader(new InputStreamReader(is));
     }
 
     // When Back Button is pressed
