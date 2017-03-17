@@ -14,6 +14,7 @@ import android.content.res.AssetManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 
@@ -27,6 +28,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
 
 import team2.com.easyaspi.databasePackage.XmlParser;
 
@@ -43,7 +45,12 @@ public class StartActivity extends AppCompatActivity {
             InputStream iStream = getBaseContext().getAssets().open("grade1_lessons.xml");
             XmlParser xmlParser = new XmlParser();
             HashMap<String, List> parsed = xmlParser.GradeParser(iStream);
-            xmlParser.GradeParser(iStream);
+            Set<String> keys = parsed.keySet();
+            for (String key: keys)
+            {
+                Log.d("Image Value Testing: ", key);
+            }
+
         } catch (IOException e) {
             e.printStackTrace();
         } catch (XmlPullParserException e) {

@@ -15,19 +15,21 @@ import org.xmlpull.v1.XmlPullParserFactory;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 public class XmlParser {
     public HashMap<String, List> GradeParser(InputStream inputStream) throws XmlPullParserException, IOException {
         // Create a null Hash, and two list objects
-        HashMap<String, List> hash = null;
-        List<TopicBean> topicList = null;
-        List<ChapterBean> chapterList = null;
+        HashMap<String, List> hash = new HashMap<String, List>();
+        List<TopicBean> topicList =  new ArrayList<TopicBean>();
+        List<ChapterBean> chapterList = new ArrayList<ChapterBean>();
+        // New Lesson Object
+        TopicBean topic = new TopicBean();
+        ChapterBean chapter = new ChapterBean();
+        // Counter
         try {
-            // New Lesson Object
-            TopicBean topic = new TopicBean();
-            ChapterBean chapter = new ChapterBean();
             // Create new instance of the XML Pull Parser in XMPULL V1 API
             XmlPullParserFactory factory = XmlPullParserFactory.newInstance();
             // Specifies that the parser produced by factory will be validating
@@ -52,7 +54,6 @@ public class XmlParser {
                             // Set topic properties
                             topic.setChapter(chapter.getChapter());
                             topic.setChaptername(chapter.getChaptername());
-                            Log.d("Chapter", chapter.getChaptername());
                             break;
                         } else if (tagName.equals("topic")){
                             // Set topic properties
@@ -60,12 +61,12 @@ public class XmlParser {
                             topic.setTopicname(xpp.getAttributeValue(null, "name"));
                             break;
                         } else if (tagName.equals("image")){
-                            // Set image properties
-                            topic.setImageaddress(xpp.getText());
+                            //Set image properties
+                            topic.setImageaddress(xpp.nextText());
                             break;
                         } else if (tagName.equals("instruction")){
                             // Set instruction properties
-                            topic.setInstruction(xpp.getText());
+                            topic.setInstruction(xpp.nextText());
                             break;
                         }
                     case XmlPullParser.END_TAG:
@@ -73,12 +74,12 @@ public class XmlParser {
                         if (tagName.equals("topic")){
                             // Adds topic object to topicList
                             topicList.add(topic);
-                            topic = null;
+                            topic = new TopicBean();
                         } else if (tagName.equals("chapter")){
                             // Adds chapter object to chapterList
                             chapterList.add(chapter);
                             // Set chapter object to null
-                            chapter = null;
+                            chapter = new ChapterBean();
                         }
                 }
                 // Go to next tag
