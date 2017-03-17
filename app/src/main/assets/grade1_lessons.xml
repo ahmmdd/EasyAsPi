@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<lessons>
+    <chapter number="1" name="Number Sense and Numeration">
+        <topic id="1.1" name="Count from 0 to 10">
+            <image>@drawable/topic_1_1</image>
+            <instruction>0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10</instruction>
+        </topic>
+        <topic id="1.2" name="Greater number">
+            <image>@drawable/topic_1_2</image>
+            <instruction>0 is smallest and 10 is largest</instruction>
+        </topic>
+    </chapter>
+</lessons>

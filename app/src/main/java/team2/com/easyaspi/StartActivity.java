@@ -10,18 +10,25 @@ package team2.com.easyaspi;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.AssetManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
 
+import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 
 import java.io.BufferedReader;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.HashMap;
+import java.util.List;
+
+import team2.com.easyaspi.databasePackage.XmlParser;
 
 
 public class StartActivity extends AppCompatActivity {
@@ -32,8 +39,16 @@ public class StartActivity extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_start);
 
-        //InputStream is = getResources().openRawResource(R.xml.grade1_lessons);
-        //BufferedReader buffer = new BufferedReader(new InputStreamReader(is));
+        try {
+            InputStream iStream = getBaseContext().getAssets().open("grade1_lessons.xml");
+            XmlParser xmlParser = new XmlParser();
+            HashMap<String, List> parsed = xmlParser.GradeParser(iStream);
+            xmlParser.GradeParser(iStream);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (XmlPullParserException e) {
+            e.printStackTrace();
+        }
     }
 
     // When Back Button is pressed
