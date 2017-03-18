@@ -3,11 +3,34 @@ package team2.com.easyaspi.databasePackage;
 /*
 *   Name: XmlParser.java
 *   Description: XML Parser Class
-*   Last Modified: 2017, March 13
+*   Last Modified: 2017, March 17
 *   Last Modified By: Taera Kwon
- */
+*   *******************************************************************
+*   HOW TO USE THIS XmlParser
+*   XmlParser will return HashMap with KEY and ArrayLists
+*   There will be total 2 keys in returned HashMap (1.chapters, 2. topics)
+*   EXAMPLE
+    try {
+        InputStream iStream = getBaseContext().getAssets().open("grade1_lessons.xml");
+        XmlParser xmlParser = new XmlParser();
+        HashMap<String, List> parsed = xmlParser.GradeParser(iStream);
+        Set<String> keys = parsed.keySet();
+        // Instatiate ArrayList for chapters and topics
+        List<ChapterBean> chapters = new ArrayList<ChapterBean>();
+        List<TopicBean> topics = new ArrayList<TopicBean>();
+        chapters = parsed.get("chapters"); // Stores arrays of Chapter Objects
+        topics = parsed.get("topics"); // Stores arrays of Topic Objects
+        // Example of Printing Chapter name from chapters array
+        Log.d("SAMPLE CHAPTER NAME: ", chapters.get(0).getChaptername());
 
-import android.util.Log;
+    } catch (IOException e) {
+        e.printStackTrace();
+    } catch (XmlPullParserException e) {
+        e.printStackTrace();
+    }
+*
+*
+ */
 
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
@@ -21,14 +44,16 @@ import java.util.List;
 
 public class XmlParser {
     public HashMap<String, List> GradeParser(InputStream inputStream) throws XmlPullParserException, IOException {
-        // Create a null Hash, and two list objects
+        // Instatiate HashMap Object
         HashMap<String, List> hash = new HashMap<String, List>();
+        // Instantiate ArrayList for Topic and Chapter
         List<TopicBean> topicList =  new ArrayList<TopicBean>();
         List<ChapterBean> chapterList = new ArrayList<ChapterBean>();
-        // New Lesson Object
+        // Instnatiate Topic and Chapter Object
         TopicBean topic = new TopicBean();
         ChapterBean chapter = new ChapterBean();
-        // Counter
+        // Stores Chapter Number temporarily (Sets back to 0 when XML reaches end tag
+        Integer tempChapter = 0;
         try {
             // Create new instance of the XML Pull Parser in XMPULL V1 API
             XmlPullParserFactory factory = XmlPullParserFactory.newInstance();
@@ -49,7 +74,8 @@ public class XmlParser {
                         // If tag is "chapter"
                         if (tagName.equals("chapter")){
                             // Set chapter properties
-                            chapter.setChapter(Integer.parseInt(xpp.getAttributeValue(null, "number")));
+                            tempChapter = Integer.parseInt(xpp.getAttributeValue(null, "number"));
+                            chapter.setChapter(tempChapter);
                             chapter.setChaptername(xpp.getAttributeValue(null, "name"));
                             // Set topic properties
                             topic.setChapter(chapter.getChapter());
@@ -78,6 +104,8 @@ public class XmlParser {
                         } else if (tagName.equals("chapter")){
                             // Adds chapter object to chapterList
                             chapterList.add(chapter);
+                            // Set tempChapter value to 0
+                            tempChapter = 0;
                             // Set chapter object to null
                             chapter = new ChapterBean();
                         }
@@ -86,12 +114,13 @@ public class XmlParser {
                 event = xpp.next();
             }
             // Add chapterList and topicList to hash
-            hash.put("Chapters", chapterList);
-            hash.put("Topics", topicList);
+            hash.put("chapters", chapterList);
+            hash.put("topics", topicList);
         }
         catch (Exception e){
             e.printStackTrace();
         }
+        // Returns hash object <String, List>
         return hash;
     }
 }
