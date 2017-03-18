@@ -16,8 +16,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
 
-
-
 public class StartActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
