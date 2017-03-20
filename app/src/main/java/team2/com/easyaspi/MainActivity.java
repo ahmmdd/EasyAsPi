@@ -7,8 +7,10 @@
 
 package team2.com.easyaspi;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -20,6 +22,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.WindowManager;
+import android.widget.TextView;
 
 import team2.com.easyaspi.dummy.DummyContent;
 
@@ -92,11 +95,22 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Fragment fragment = null; // Declare null fragment object
         Class fragmentClass = null; // Not defining which type of fragment
 
+        TextView userTextInfo = (TextView) findViewById(R.id.textView_userName);
+
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
+        String username = sharedPref.getString("UserName", "Unknown");
+        System.out.println("Current user logged in is: " + username);
+        userTextInfo.setText(username);
+
+
         int id = item.getItemId();
         if (id == R.id.nav_lesson) {
             // Handle "Select a Lesson"
             fragmentClass = GradesFragment.class;
-        } else if (id == R.id.nav_logout) {
+        } else if(id == R.id.nav_profile) {
+            fragmentClass = ProfileFragment.class;
+        }
+        else if (id == R.id.nav_logout) {
             // When user presses Logout button
             new AlertDialog.Builder(this)
                     .setIcon(android.R.drawable.ic_dialog_alert)
