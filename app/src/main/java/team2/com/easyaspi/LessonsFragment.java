@@ -13,15 +13,13 @@ import android.view.ViewGroup;
 import team2.com.easyaspi.dummy.DummyContent;
 import team2.com.easyaspi.dummy.DummyContent.DummyItem;
 
-import java.util.List;
-
 /**
  * A fragment representing a list of Items.
  * <p/>
  * Activities containing this fragment MUST implement the {@link OnListFragmentInteractionListener}
  * interface.
  */
-public class GradesFragment extends Fragment {
+public class LessonsFragment extends Fragment {
 
     // TODO: Customize parameter argument names
     private static final String ARG_COLUMN_COUNT = "column-count";
@@ -33,13 +31,13 @@ public class GradesFragment extends Fragment {
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes).
      */
-    public GradesFragment() {
+    public LessonsFragment() {
     }
 
     // TODO: Customize parameter initialization
     @SuppressWarnings("unused")
-    public static GradesFragment newInstance(int columnCount) {
-        GradesFragment fragment = new GradesFragment();
+    public static LessonsFragment newInstance(int columnCount) {
+        LessonsFragment fragment = new LessonsFragment();
         Bundle args = new Bundle();
         args.putInt(ARG_COLUMN_COUNT, columnCount);
         fragment.setArguments(args);
@@ -69,7 +67,7 @@ public class GradesFragment extends Fragment {
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            recyclerView.setAdapter(new MyGradesRecyclerViewAdapter(DummyContent.ITEMS, mListener));
+            recyclerView.setAdapter(new LessonsViewAdapter(DummyContent.ITEMS, mListener));
         }
         return view;
     }

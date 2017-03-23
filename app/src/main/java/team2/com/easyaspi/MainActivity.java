@@ -23,7 +23,7 @@ import android.view.WindowManager;
 
 import team2.com.easyaspi.dummy.DummyContent;
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, MainFragment.OnFragmentInteractionListener, GradesFragment.OnListFragmentInteractionListener{
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, MainFragment.OnFragmentInteractionListener, LessonsFragment.OnListFragmentInteractionListener{
     /*
     *   ON CREATE METHOD
      */
@@ -95,7 +95,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         int id = item.getItemId();
         if (id == R.id.nav_lesson) {
             // Handle "Select a Lesson"
-            fragmentClass = GradesFragment.class;
+            fragmentClass = LessonsFragment.class;
         } else if (id == R.id.nav_logout) {
             // When user presses Logout button
             new AlertDialog.Builder(this)

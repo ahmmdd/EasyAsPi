@@ -9,5 +9,5 @@
     android:layout_marginLeft="16dp"
     android:layout_marginRight="16dp"
     app:layoutManager="LinearLayoutManager"
-    tools:context="team2.com.easyaspi.GradesFragment"
+    tools:context="team2.com.easyaspi.LessonsFragment"
     tools:listitem="@layout/fragment_grades" />
