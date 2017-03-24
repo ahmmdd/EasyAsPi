@@ -50,7 +50,6 @@ public class LessonsViewAdapter extends RecyclerView.Adapter<LessonsViewAdapter.
     public int getItemCount() {
         return chapters.size();
     }
-
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final View mView;
         public final TextView mIdView;

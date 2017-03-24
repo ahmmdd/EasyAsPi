@@ -59,10 +59,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
-        } else {
+        // Counter to count fragments
+        int fragCount = getFragmentManager().getBackStackEntryCount();
+
+        if (fragCount == 0){
+            super.onBackPressed();
+            DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+            if (drawer.isDrawerOpen(GravityCompat.START)) {
+                drawer.closeDrawer(GravityCompat.START);
+            }
+        }
+        else {
             new AlertDialog.Builder(this)
                     .setIcon(android.R.drawable.ic_dialog_alert)
                     .setTitle("Exit the application?")
@@ -91,9 +98,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         // Create a frament
         Fragment fragment = null; // Declare null fragment object
         Class fragmentClass = null; // Not defining which type of fragment
-
+        LessonsFragment lessonsFragment = new LessonsFragment();
         int id = item.getItemId();
-        if (id == R.id.nav_lesson) {
+        if (id == R.id.nav_backToMain) {
+            // Goes back to Main
+            fragmentClass = MainFragment.class;
+        } else if (id == R.id.nav_lesson) {
             // Handle "Select a Lesson"
             fragmentClass = LessonsFragment.class;
         } else if (id == R.id.nav_logout) {
@@ -123,8 +133,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
 
             FragmentManager fragmentManager = getSupportFragmentManager();
-            fragmentManager.beginTransaction().replace(R.id.flContent, fragment).commit();
-
+            fragmentManager.beginTransaction().replace(R.id.flContent, fragment)
+                    .add(lessonsFragment, "lessons")
+                    .addToBackStack(null) // Puts fragment into stack so back button goes back to previous state
+                    .commit();
             DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
             drawer.closeDrawer(GravityCompat.START);
         } // if fragmentClass if not null
