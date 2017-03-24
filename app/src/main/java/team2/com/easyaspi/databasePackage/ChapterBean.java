@@ -1,7 +1,5 @@
 package team2.com.easyaspi.databasePackage;
 
-import java.io.Serializable;
-
 /*
 *   Name: ChapterBean.java
 *   Description: Lesson Bean Class
@@ -9,7 +7,12 @@ import java.io.Serializable;
 *   Last Modified By: Taera Kwon
  */
 
-public class ChapterBean implements Serializable {
+import java.util.ArrayList;
+import java.util.List;
+
+public class ChapterBean {
+    public static final List<ChapterBean> ITEMS = new ArrayList<ChapterBean>();
+
     // PRIVATE VARIABLES
     private int chapter;
     private String chaptername;

@@ -21,7 +21,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.WindowManager;
 
-import team2.com.easyaspi.dummy.DummyContent;
+import team2.com.easyaspi.databasePackage.ChapterBean;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, MainFragment.OnFragmentInteractionListener, LessonsFragment.OnListFragmentInteractionListener{
     /*
@@ -139,7 +139,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     @Override
-    public void onListFragmentInteraction(DummyContent.DummyItem item) {
+    public void onListFragmentInteraction(ChapterBean item) {
 
     }
 }

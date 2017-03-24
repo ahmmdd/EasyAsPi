@@ -7,37 +7,32 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import team2.com.easyaspi.LessonsFragment.OnListFragmentInteractionListener;
-import team2.com.easyaspi.dummy.DummyContent.DummyItem;
+import team2.com.easyaspi.databasePackage.ChapterBean;
 
 import java.util.List;
 
-/**
- * {@link RecyclerView.Adapter} that can display a {@link DummyItem} and makes a call to the
- * specified {@link OnListFragmentInteractionListener}.
- * TODO: Replace the implementation with code for your data type.
- */
 public class LessonsViewAdapter extends RecyclerView.Adapter<LessonsViewAdapter.ViewHolder> {
-
-    private final List<DummyItem> mValues;
+    private final List<ChapterBean> chapters;
     private final OnListFragmentInteractionListener mListener;
 
-    public LessonsViewAdapter(List<DummyItem> items, OnListFragmentInteractionListener listener) {
-        mValues = items;
+    // Setes items (passed from LessonsFragment) into chapters
+    public LessonsViewAdapter(List<ChapterBean> items, OnListFragmentInteractionListener listener) {
+        chapters = items;
         mListener = listener;
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.fragment_grades, parent, false);
+                .inflate(R.layout.fragment_lessons, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
-        holder.mItem = mValues.get(position);
-        holder.mIdView.setText(mValues.get(position).id);
-        holder.mContentView.setText(mValues.get(position).content);
+        holder.mItem = chapters.get(position);
+        holder.mIdView.setText("" + chapters.get(position).getChapter());
+        holder.mContentView.setText(chapters.get(position).getChaptername());
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -53,14 +48,14 @@ public class LessonsViewAdapter extends RecyclerView.Adapter<LessonsViewAdapter.
 
     @Override
     public int getItemCount() {
-        return mValues.size();
+        return chapters.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final View mView;
         public final TextView mIdView;
         public final TextView mContentView;
-        public DummyItem mItem;
+        public ChapterBean mItem;
 
         public ViewHolder(View view) {
             super(view);
