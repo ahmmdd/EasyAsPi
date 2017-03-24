@@ -21,7 +21,9 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.WindowManager;
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, MainFragment.OnFragmentInteractionListener, RecycledViewFragment.OnFragmentInteractionListener {
+import team2.com.easyaspi.databasePackage.ChapterBean;
+
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, MainFragment.OnFragmentInteractionListener, LessonsFragment.OnListFragmentInteractionListener {
     /*
     *   ON CREATE METHOD
      */
@@ -112,7 +114,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 title = "Easy as PI";
                 break;
             case R.id.nav_lesson:
-                fragmentClass = RecycledViewFragment.class;
+                fragmentClass = LessonsFragment.class;
                 title = "Lessons";
                 break;
             case R.id.nav_logout:
@@ -161,5 +163,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     // Overriding onFragmentInteraction from MainFragment
     @Override
     public void onFragmentInteraction(Uri uri) {
+    }
+
+    @Override
+    public void onListFragmentInteraction(ChapterBean chapter) {
     }
 }
