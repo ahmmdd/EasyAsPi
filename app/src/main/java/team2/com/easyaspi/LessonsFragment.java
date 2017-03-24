@@ -9,7 +9,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
+import org.w3c.dom.Text;
 import org.xmlpull.v1.XmlPullParserException;
 
 import java.io.IOException;
@@ -38,9 +40,8 @@ public class LessonsFragment extends Fragment {
     private int mColumnCount = 1;
     private OnListFragmentInteractionListener mListener;
 
-    // Instatiate ArrayList for chapters and topics
+    // Instatiate ArrayList for chapters
     List<ChapterBean> chapters = new ArrayList<ChapterBean>();
-    List<TopicBean> topics = new ArrayList<TopicBean>();
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -78,7 +79,9 @@ public class LessonsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // fragment_lessons_list lists layout from layout/fragment_lessons
         View view = inflater.inflate(R.layout.fragment_lessons_list, container, false);
-        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.rv_grades);
+        TextView header = (TextView) view.findViewById(R.id.header_lessons);
+        header.setText("List of available chapters");
+        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.rv_lessons);
         recyclerView.setAdapter(new LessonsViewAdapter(chapters, mListener));
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         return view;
@@ -115,7 +118,7 @@ public class LessonsFragment extends Fragment {
      */
     public interface OnListFragmentInteractionListener {
         // TODO: Update argument type and name
-        void onListFragmentInteraction(int position);
+        void onListFragmentInteraction(ChapterBean chapter);
     }
 
     // Uses XmlPaser class to parse xml file for lessons
@@ -126,7 +129,6 @@ public class LessonsFragment extends Fragment {
             HashMap<String, List> parsed = xmlParser.GradeParser(iStream);
             Set<String> keys = parsed.keySet();
             chapters = parsed.get("chapters"); // Stores arrays of Chapter Objects
-            topics = parsed.get("topics"); // Stores arrays of Topic Objects
         } catch (IOException e) {
             e.printStackTrace();
         } catch (XmlPullParserException e) {
