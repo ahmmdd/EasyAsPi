@@ -8,16 +8,21 @@
 
     <ImageView
         android:id="@+id/profile_view_imageView"
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
         app:srcCompat="@mipmap/ic_launcher" />
 
     <TextView
         android:id="@+id/profile_view_tvName"
-        android:layout_width="200dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Profile 1"
-        android:textSize="36sp"
+        android:text="Profile Undef"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="30dp"
+        android:textSize="32sp"
         android:textStyle="bold"
         android:layout_toEndOf="@+id/profile_view_imageView" />
 
@@ -25,34 +30,34 @@
         android:id="@+id/profile_view_tvDetails"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Details \n Details \n Deatails \ \n Deatails"
+        android:text="Undef \nDetails \nDetails \nDetails"
+        android:textSize="24dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
         android:layout_below="@+id/profile_view_imageView"
         android:layout_marginTop="63dp" />
 
+
     <Button
         android:id="@+id/profile_view_btnEdit"
-        android:layout_width="150dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/colorPrimary"
         android:text="Edit Profile"
-        android:paddingLeft="8dp"
-        android:paddingRight="8dp"
-
-        android:layout_marginBottom="17dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginStart="20dp" />
+        android:layout_marginBottom="70dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_alignParentBottom="true"/>
 
     <Button
         android:id="@+id/profile_view_btnDelete"
-        android:layout_width="150dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/colorPrimary"
         android:text="Delete Profile"
-        android:layout_alignBaseline="@+id/profile_view_btnEdit"
-        android:layout_alignBottom="@+id/profile_view_btnEdit"
-        android:layout_toEndOf="@+id/profile_view_btnEdit"
-        android:layout_marginStart="20dp" />
-
+        android:layout_marginBottom="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_alignParentBottom="true"/>
 
 </RelativeLayout>

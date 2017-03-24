@@ -24,6 +24,8 @@ import android.view.MenuItem;
 import android.view.WindowManager;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
+
 import team2.com.easyaspi.dummy.DummyContent;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, MainFragment.OnFragmentInteractionListener, GradesFragment.OnListFragmentInteractionListener{
@@ -97,11 +99,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         TextView userTextInfo = (TextView) findViewById(R.id.textView_userName);
 
+        //SharedPreferences sharedPref = getPreferences(MODE_PRIVATE); // Wont work
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
-        String username = sharedPref.getString("UserName", "Unknown");
-        System.out.println("Current user logged in is: " + username);
-        userTextInfo.setText(username);
-
+        Gson gson = new Gson();
+        String json = sharedPref.getString("SelectedProfile", "");
+        Profile profile = gson.fromJson(json, Profile.class);
+        userTextInfo.setText(profile.getName());
 
         int id = item.getItemId();
         if (id == R.id.nav_lesson) {
