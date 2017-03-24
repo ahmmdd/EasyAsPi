@@ -18,10 +18,16 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.WindowManager;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import team2.com.easyaspi.databasePackage.ChapterBean;
+import team2.com.easyaspi.databasePackage.TopicBean;
+import team2.com.easyaspi.lessonsPackage.LessonsFragment;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, MainFragment.OnFragmentInteractionListener, LessonsFragment.OnListFragmentInteractionListener {
     /*
@@ -165,7 +171,24 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public void onFragmentInteraction(Uri uri) {
     }
 
+    // Listener for Lessons list fragment
     @Override
     public void onListFragmentInteraction(ChapterBean chapter) {
+        try{
+            // Grabs topics list
+            List<TopicBean> allTopicsList = LessonsFragment.topicsList;
+            List<TopicBean> topicsList = new ArrayList<>();
+            for (int counter = 0; counter < allTopicsList.size(); counter++){
+                if (allTopicsList.get(counter).getChapter() == chapter.getChapter()) {
+                    topicsList.add(allTopicsList.get(counter));
+                }
+            }
+            if (topicsList != null){
+                Log.d("Chapter:", topicsList.get(0).getChapter()+"; topic id:" + topicsList.get(0).getTopicname());
+                Log.d("Chapter:", topicsList.get(1).getChapter()+"; topic id:" + topicsList.get(1).getTopicname());
+            }
+        } catch (Exception e){
+            e.printStackTrace();
+        }
     }
 }

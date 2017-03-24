@@ -1,4 +1,4 @@
-package team2.com.easyaspi;
+package team2.com.easyaspi.lessonsPackage;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -6,7 +6,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import team2.com.easyaspi.LessonsFragment.OnListFragmentInteractionListener;
+import team2.com.easyaspi.R;
+import team2.com.easyaspi.lessonsPackage.LessonsFragment.OnListFragmentInteractionListener;
 import team2.com.easyaspi.databasePackage.ChapterBean;
 
 import java.util.List;
@@ -15,7 +16,7 @@ public class LessonsViewAdapter extends RecyclerView.Adapter<LessonsViewAdapter.
     private final List<ChapterBean> chapters;
     private final OnListFragmentInteractionListener mListener;
 
-    // Setes items (passed from LessonsFragment) into chapters
+    // Setes items (passed from LessonsFragment) into chaptersList
     public LessonsViewAdapter(List<ChapterBean> items, OnListFragmentInteractionListener listener) {
         chapters = items;
         mListener = listener;

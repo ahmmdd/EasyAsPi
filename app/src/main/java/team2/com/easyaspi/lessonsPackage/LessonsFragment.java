@@ -1,19 +1,15 @@
-package team2.com.easyaspi;
+package team2.com.easyaspi.lessonsPackage;
 
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
-import org.w3c.dom.Text;
 import org.xmlpull.v1.XmlPullParserException;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -21,6 +17,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
 
+import team2.com.easyaspi.R;
 import team2.com.easyaspi.databasePackage.ChapterBean;
 import team2.com.easyaspi.databasePackage.TopicBean;
 import team2.com.easyaspi.databasePackage.XmlParser;
@@ -30,7 +27,7 @@ import team2.com.easyaspi.databasePackage.XmlParser;
 *   Last Modified: 2017, March 23
 *   Last Modified By: Taera Kwon
 *   Description: Lesson Fragment Class that represents list of Lessons
- * Activities containing this fragment MUST implement the {@link OnListFragmentInteractionListener}
+*   Activities containing this fragment MUST implement the {@link OnListFragmentInteractionListener}
  */
 
 public class LessonsFragment extends Fragment {
@@ -40,13 +37,11 @@ public class LessonsFragment extends Fragment {
     private int mColumnCount = 1;
     private OnListFragmentInteractionListener mListener;
 
-    // Instatiate ArrayList for chapters
-    List<ChapterBean> chapters = new ArrayList<ChapterBean>();
+    // Instatiate ArrayList for chaptersList
+    public static List<ChapterBean> chaptersList = new ArrayList<ChapterBean>();
+    public static List<TopicBean> topicsList = new ArrayList<TopicBean>();
 
-    /**
-     * Mandatory empty constructor for the fragment manager to instantiate the
-     */
-
+    // Default constructor
     public LessonsFragment() {
     }
 
@@ -68,25 +63,23 @@ public class LessonsFragment extends Fragment {
         if (getArguments() != null) {
             mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
         }
-        // Stores chapters and topics object names (sets chapters and topics)
+        // Stores chaptersList and topicsList object names (sets chaptersList and topicsList)
         bringLessonItems();
     }
 
     // Instatiate the user interface view for the Fragment
     // LayoutInflator = layout XML to view object
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // fragment_lessons_list lists layout from layout/fragment_lessons
         View view = inflater.inflate(R.layout.fragment_lessons_list, container, false);
         TextView header = (TextView) view.findViewById(R.id.header_lessons);
-        header.setText("List of available chapters");
+        header.setText("List of available chaptersList");
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.rv_lessons);
-        recyclerView.setAdapter(new LessonsViewAdapter(chapters, mListener));
+        recyclerView.setAdapter(new LessonsViewAdapter(chaptersList, mListener)); // SETS RecycledView List items
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         return view;
     }
-
 
     @Override
     public void onAttach(Context context) {
@@ -111,13 +104,9 @@ public class LessonsFragment extends Fragment {
      * fragment to allow an interaction in this fragment to be communicated
      * to the activity and potentially other fragments contained in that
      * activity.
-     * <p/>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
      */
+
     public interface OnListFragmentInteractionListener {
-        // TODO: Update argument type and name
         void onListFragmentInteraction(ChapterBean chapter);
     }
 
@@ -128,12 +117,12 @@ public class LessonsFragment extends Fragment {
             XmlParser xmlParser = new XmlParser();
             HashMap<String, List> parsed = xmlParser.GradeParser(iStream);
             Set<String> keys = parsed.keySet();
-            chapters = parsed.get("chapters"); // Stores arrays of Chapter Objects
+            chaptersList = parsed.get("chaptersList"); // Stores arrays of Chapter Objects
+            topicsList = parsed.get("topicsList");
         } catch (IOException e) {
             e.printStackTrace();
         } catch (XmlPullParserException e) {
             e.printStackTrace();
         }
     }
-
 }

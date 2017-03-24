@@ -7,12 +7,7 @@ package team2.com.easyaspi.databasePackage;
 *   Last Modified By: Taera Kwon
  */
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class ChapterBean {
-    public static final List<ChapterBean> ITEMS = new ArrayList<ChapterBean>();
-
     // PRIVATE VARIABLES
     private int chapter;
     private String chaptername;
