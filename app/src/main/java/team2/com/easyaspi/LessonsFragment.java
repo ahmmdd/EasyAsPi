@@ -6,7 +6,6 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -79,20 +78,9 @@ public class LessonsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // fragment_lessons_list lists layout from layout/fragment_lessons
         View view = inflater.inflate(R.layout.fragment_lessons_list, container, false);
-
-        // Set the adapter
-        // RecycleView is like traditional ListView but more flexibility that can handle larger datasets
-        if (view instanceof RecyclerView) {
-            Context context = view.getContext();
-            RecyclerView recyclerView = (RecyclerView) view;
-            // If column is less or equal to 1 column, set layout to linear, else, gridlayout
-            if (mColumnCount <= 1) {
-                recyclerView.setLayoutManager(new LinearLayoutManager(context));
-            } else {
-                recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
-            }
-            recyclerView.setAdapter(new LessonsViewAdapter(chapters, mListener));
-        }
+        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.rv_grades);
+        recyclerView.setAdapter(new LessonsViewAdapter(chapters, mListener));
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         return view;
     }
 
@@ -100,6 +88,7 @@ public class LessonsFragment extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
+        // If container activity did not implement callback interface, if not, it throws an exception
         if (context instanceof OnListFragmentInteractionListener) {
             mListener = (OnListFragmentInteractionListener) context;
         } else {
@@ -126,7 +115,7 @@ public class LessonsFragment extends Fragment {
      */
     public interface OnListFragmentInteractionListener {
         // TODO: Update argument type and name
-        void onListFragmentInteraction(ChapterBean item);
+        void onListFragmentInteraction(int position);
     }
 
     // Uses XmlPaser class to parse xml file for lessons
@@ -138,11 +127,11 @@ public class LessonsFragment extends Fragment {
             Set<String> keys = parsed.keySet();
             chapters = parsed.get("chapters"); // Stores arrays of Chapter Objects
             topics = parsed.get("topics"); // Stores arrays of Topic Objects
-
         } catch (IOException e) {
             e.printStackTrace();
         } catch (XmlPullParserException e) {
             e.printStackTrace();
         }
     }
+
 }

@@ -10,4 +10,14 @@
             <instruction>0 is smallest and 10 is largest</instruction>
         </topic>
     </chapter>
+    <chapter number="2" name="Chapter 2 Testing Format">
+        <topic id="2.1" name="Chapter 2 Count from 0 to 10">
+            <image>@drawable/topic_1_1</image>
+            <instruction>0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10</instruction>
+        </topic>
+        <topic id="2.2" name="Chapter 2 Greater number">
+            <image>@drawable/topic_1_2</image>
+            <instruction>0 is smallest and 10 is largest</instruction>
+        </topic>
+    </chapter>
 </lessons>
