@@ -18,7 +18,6 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.WindowManager;
 
@@ -28,8 +27,10 @@ import java.util.List;
 import team2.com.easyaspi.databasePackage.ChapterBean;
 import team2.com.easyaspi.databasePackage.TopicBean;
 import team2.com.easyaspi.lessonsPackage.LessonsFragment;
+import team2.com.easyaspi.lessonsPackage.TopicsFragment;
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, MainFragment.OnFragmentInteractionListener, LessonsFragment.OnListFragmentInteractionListener {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, MainFragment.OnFragmentInteractionListener,
+        LessonsFragment.OnListFragmentInteractionListener, TopicsFragment.OnListFragmentInteractionListener {
     /*
     *   ON CREATE METHOD
      */
@@ -104,12 +105,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-        changeFragment(item.getItemId());
+        changeView(item.getItemId());
         return true;
     }
 
     // CUSTOM METHOD TO CHANGE FRAGMENT
-    public void changeFragment(int viewId){
+    public void changeView(int viewId){
         Fragment fragment = null;
         Class fragmentClass = null;
         String title = getString(R.string.app_name);
@@ -177,18 +178,38 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         try{
             // Grabs topics list
             List<TopicBean> allTopicsList = LessonsFragment.topicsList;
+            // Creates new topicsList object that will store topic object from forloop at below
+            // after comparing integer value of chapter
             List<TopicBean> topicsList = new ArrayList<>();
             for (int counter = 0; counter < allTopicsList.size(); counter++){
+                // If chapter name equals
                 if (allTopicsList.get(counter).getChapter() == chapter.getChapter()) {
-                    topicsList.add(allTopicsList.get(counter));
+                    topicsList.add(allTopicsList.get(counter)); // Add topic to topicsList
                 }
             }
-            if (topicsList != null){
-                Log.d("Chapter:", topicsList.get(0).getChapter()+"; topic id:" + topicsList.get(0).getTopicname());
-                Log.d("Chapter:", topicsList.get(1).getChapter()+"; topic id:" + topicsList.get(1).getTopicname());
+            if (topicsList != null) {
+                // Pass listValue to TopicsFragment at its instance
+                Fragment fragment = null;
+                fragment = TopicsFragment.newInstance(topicsList);
+                FragmentManager fragmentManager = getSupportFragmentManager();
+                fragmentManager.beginTransaction().replace(R.id.flContent, fragment)
+                        .addToBackStack(null) // Puts fragment into stack so back button goes back to previous state
+                        .commit();
+                DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+                drawer.closeDrawer(GravityCompat.START);
+                String topicsTitle = "Topics for Chapter # " + chapter.getChapter();
+                // Change the toolbar title
+                if (getSupportActionBar() != null){
+                    getSupportActionBar().setTitle(topicsTitle);
+                }
             }
         } catch (Exception e){
             e.printStackTrace();
         }
+    }
+
+    // Listener for Topics list fragment
+    @Override
+    public void onListFragmentInteraction(TopicBean item) {
     }
 }
