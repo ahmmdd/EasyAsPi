@@ -8,5 +8,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="HELLO THIS IS NEW FRAGMENT"/>
+        android:layout_marginTop="16dp"
+        android:layout_marginLeft="16dp"
+        android:text="Welcome to Easy as PI\nYou can navigate using the hamburger button at the top left"/>
 </FrameLayout>
