@@ -31,6 +31,10 @@ import team2.com.easyaspi.lessonsPackage.TopicsFragment;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, MainFragment.OnFragmentInteractionListener,
         LessonsFragment.OnListFragmentInteractionListener, TopicsFragment.OnListFragmentInteractionListener {
+    // Private Variable
+    // Set String
+    private String topicsTitle = "";
+
     /*
     *   ON CREATE METHOD
      */
@@ -43,6 +47,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         // Get the value from the intent
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
 
         // Fragment
         Fragment fragment = null;
@@ -113,16 +118,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public void changeView(int viewId){
         Fragment fragment = null;
         Class fragmentClass = null;
-        String title = getString(R.string.app_name);
+        topicsTitle = getString(R.string.app_name);
         // SWITCH statement for Nav
         switch (viewId) {
             case R.id.nav_backToMain:
                 fragmentClass = MainFragment.class;
-                title = "Easy as PI";
+                topicsTitle = "Easy as PI";
                 break;
             case R.id.nav_lesson:
                 fragmentClass = LessonsFragment.class;
-                title = "Lessons";
+                topicsTitle = "Lessons";
                 break;
             case R.id.nav_logout:
                 // When user presses Logout button
@@ -163,7 +168,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
         // Change the toolbar title
         if (getSupportActionBar() != null){
-            getSupportActionBar().setTitle(title);
+            getSupportActionBar().setTitle(topicsTitle);
         }
     }
 
@@ -197,7 +202,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         .commit();
                 DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
                 drawer.closeDrawer(GravityCompat.START);
-                String topicsTitle = "Topics for Chapter # " + chapter.getChapter();
+                topicsTitle = "Topics for Chapter # " + chapter.getChapter();
                 // Change the toolbar title
                 if (getSupportActionBar() != null){
                     getSupportActionBar().setTitle(topicsTitle);
