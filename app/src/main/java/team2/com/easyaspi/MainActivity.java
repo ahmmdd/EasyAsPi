@@ -18,6 +18,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.WindowManager;
 
@@ -33,7 +34,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         LessonsFragment.OnListFragmentInteractionListener, TopicsFragment.OnListFragmentInteractionListener {
     // Private Variable
     // Set String
-    private String topicsTitle = "";
+    private String sPreviousTitle = "";
+    private String sTitle = "";
 
     /*
     *   ON CREATE METHOD
@@ -47,7 +49,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         // Get the value from the intent
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
 
         // Fragment
         Fragment fragment = null;
@@ -70,19 +71,25 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         // Define and set NavigationView (Left navigation panel)
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
     }
 
     @Override
     public void onBackPressed() {
         // Counter to count fragments
-        int fragCount = getFragmentManager().getBackStackEntryCount();
+        int fragCount = getSupportFragmentManager().getBackStackEntryCount();
 
-        if (fragCount == 0){
+        if (fragCount > 0){
+            if (fragCount == 1){
+                sPreviousTitle = "Easy as PI";
+            }
+            // Overriding
             super.onBackPressed();
             DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
             if (drawer.isDrawerOpen(GravityCompat.START)) {
                 drawer.closeDrawer(GravityCompat.START);
             }
+            getSupportActionBar().setTitle(sPreviousTitle);
         }
         else {
             new AlertDialog.Builder(this)
@@ -118,16 +125,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public void changeView(int viewId){
         Fragment fragment = null;
         Class fragmentClass = null;
-        topicsTitle = getString(R.string.app_name);
+        sTitle = getString(R.string.app_name);
+        sPreviousTitle = sTitle;
         // SWITCH statement for Nav
         switch (viewId) {
             case R.id.nav_backToMain:
                 fragmentClass = MainFragment.class;
-                topicsTitle = "Easy as PI";
+                sTitle = "Easy as PI";
                 break;
             case R.id.nav_lesson:
                 fragmentClass = LessonsFragment.class;
-                topicsTitle = "Lessons";
+                sTitle = "Lessons";
                 break;
             case R.id.nav_logout:
                 // When user presses Logout button
@@ -168,7 +176,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
         // Change the toolbar title
         if (getSupportActionBar() != null){
-            getSupportActionBar().setTitle(topicsTitle);
+            getSupportActionBar().setTitle(sTitle);
         }
     }
 
@@ -202,10 +210,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         .commit();
                 DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
                 drawer.closeDrawer(GravityCompat.START);
-                topicsTitle = "Topics for Chapter # " + chapter.getChapter();
+                sPreviousTitle = getSupportActionBar().getTitle().toString();
+                sTitle = "Topics for Chapter # " + chapter.getChapter();
                 // Change the toolbar title
                 if (getSupportActionBar() != null){
-                    getSupportActionBar().setTitle(topicsTitle);
+                    getSupportActionBar().setTitle(sTitle);
                 }
             }
         } catch (Exception e){

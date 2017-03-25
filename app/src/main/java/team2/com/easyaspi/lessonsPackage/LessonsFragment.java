@@ -15,7 +15,6 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Set;
 
 import team2.com.easyaspi.R;
 import team2.com.easyaspi.databasePackage.ChapterBean;
@@ -31,10 +30,7 @@ import team2.com.easyaspi.databasePackage.XmlParser;
  */
 
 public class LessonsFragment extends Fragment {
-    // TODO: Customize parameter argument names
-    private static final String ARG_COLUMN_COUNT = "column-count";
-    // TODO: Customize parameters
-    private int mColumnCount = 1;
+
     private OnListFragmentInteractionListener mListener;
 
     // Instatiate ArrayList for chaptersList
@@ -49,9 +45,6 @@ public class LessonsFragment extends Fragment {
     @SuppressWarnings("unused")
     public static LessonsFragment newInstance(int columnCount) {
         LessonsFragment fragment = new LessonsFragment();
-        Bundle args = new Bundle();
-        args.putInt(ARG_COLUMN_COUNT, columnCount);
-        fragment.setArguments(args);
         return fragment;
     }
 
@@ -60,9 +53,6 @@ public class LessonsFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         // Returns the arguments supplied to setArguments(Bundle) if there are any
-        if (getArguments() != null) {
-            mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
-        }
         // Stores chaptersList and topicsList object names (sets chaptersList and topicsList)
         bringLessonItems();
     }
@@ -74,7 +64,7 @@ public class LessonsFragment extends Fragment {
         // fragment_lessons_list lists layout from layout/fragment_lessons
         View view = inflater.inflate(R.layout.fragment_lessons_list, container, false);
         TextView header = (TextView) view.findViewById(R.id.header_lessons);
-        header.setText("List of available chaptersList");
+        header.setText("List of available chapters");
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.rv_lessons);
         recyclerView.setAdapter(new LessonsViewAdapter(chaptersList, mListener)); // SETS RecycledView List items
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -116,7 +106,7 @@ public class LessonsFragment extends Fragment {
             InputStream iStream = getResources().getAssets().open("grade1_lessons.xml");
             XmlParser xmlParser = new XmlParser();
             HashMap<String, List> parsed = xmlParser.GradeParser(iStream);
-            Set<String> keys = parsed.keySet();
+            //Set<String> keys = parsed.keySet();
             chaptersList = parsed.get("chaptersList"); // Stores arrays of Chapter Objects
             topicsList = parsed.get("topicsList");
         } catch (IOException e) {
