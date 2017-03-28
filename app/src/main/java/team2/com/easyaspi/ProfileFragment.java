@@ -1,6 +1,8 @@
 package team2.com.easyaspi;
 
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.os.Bundle;
@@ -9,6 +11,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,7 +33,7 @@ public class ProfileFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
-        Context context = view.getContext();
+        final Context context = view.getContext();
 
         // Set up a fall back profile
         Profile profile = new Profile("0", "Profile 0", "This is profile 0", "logo");
@@ -53,7 +56,7 @@ public class ProfileFragment extends Fragment {
             System.out.println("ProfileFragment Error: " + exception.getMessage());
         }
 
-        // Set values profile values to the current profile
+        // Set profile values to the profile view components
         tvProfileName.setText(profile.getName());
         tvProfileDetails.setText(profile.getDetails());
         ivProfileImage.setImageResource(profile.setImage(ivProfileImage, context));
@@ -68,8 +71,26 @@ public class ProfileFragment extends Fragment {
 
         btnDelete.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                // Call the delete profile method
-                //DeleteProfile();
+                // Verify that the user wishes to delete the profile
+                new AlertDialog.Builder(context)
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .setTitle("Delete Profile")
+                        .setMessage("Are you sure you want to delete this profile?")
+                        // if yes
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                // Call the delete profile method
+                                //DeleteProfile();
+
+                                // Return to the start activity
+                                Intent intent = new Intent(context, StartActivity.class);
+                                startActivity(intent);
+                            }
+                        })
+                        // If no
+                        .setNegativeButton("No", null)
+                        .show();
             }
         });
 

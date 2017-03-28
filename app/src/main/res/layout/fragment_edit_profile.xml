@@ -11,7 +11,11 @@
         android:layout_height="wrap_content"
         android:text="Edit Profile"
         android:textSize="30sp"
-        android:textStyle="bold"/>
+        android:textStyle="bold"
+        android:background="#f78888"
+        android:textAlignment="center"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"/>
 
     <TextView
         android:id="@+id/textView3"
@@ -84,8 +88,9 @@
         android:background="#ffeeee"
         android:ems="10"
         android:inputType="textMultiLine"
-        android:text=""
-        android:lines="3"/>
+        android:text="Detailed information number 1 for profile 11\nDetailed information number 1 for profile 11\nDetailed information number 1 for profile 11"
+        android:lines="3"
+        android:gravity="left|top"/>
 
     <RelativeLayout
         android:layout_width="match_parent"

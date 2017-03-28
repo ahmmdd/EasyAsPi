@@ -56,7 +56,7 @@ public class Profile {
 
     @Override
     public String toString() {
-        return String.format("ID" + this.id + "Name: " + getName() + " Image name: " + getImageName() + "Details: " + getDetails());
+        return String.format("ID" + this.id + ", Name: " + getName() + ", Image name: " + getImageName() + ", Details: " + getDetails());
     }
 }
 
