@@ -1,0 +1,17 @@
+{
+  "name": "easyaspi-api",
+  "version": "1.0.0",
+  "description": "API the connects android application with the mongo database",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Mohammed Juned Ahmed",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.17.1",
+    "express": "^4.15.2",
+    "mongoose": "^4.9.2",
+    "node-restful": "^0.2.6"
+  }
+}
