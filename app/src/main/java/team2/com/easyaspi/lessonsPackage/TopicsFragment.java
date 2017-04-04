@@ -16,26 +16,20 @@ import team2.com.easyaspi.R;
 import team2.com.easyaspi.databasePackage.TopicBean;
 
 /**
- * A fragment representing a list of Items.
- * <p/>
- * Activities containing this fragment MUST implement the {@link OnListFragmentInteractionListener}
- * interface.
+ *   Name: TopicsFragment.java
+ *   Last Modified: 2017, April 4th
+ *   Last Modified By: Taera Kwon
+ *   Description: Fragment that displays the list of topics
  */
+
 public class TopicsFragment extends Fragment {
-    // TODO: Customize parameters
-    private int mColumnCount = 1;
     private OnListFragmentInteractionListener mListener;
     private List<TopicBean> topicsList = null;
 
-    /**
-     * Mandatory empty constructor for the fragment manager to instantiate the
-     * fragment (e.g. upon screen orientation changes).
-     */
     public TopicsFragment() {
     }
 
     // TODO: Customize parameter initialization
-    @SuppressWarnings("unused")
     public static TopicsFragment newInstance(List<TopicBean> tList) {
         TopicsFragment fragment = new TopicsFragment();
         fragment.topicsList = tList;

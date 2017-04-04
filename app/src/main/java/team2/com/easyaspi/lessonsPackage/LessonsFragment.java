@@ -103,7 +103,7 @@ public class LessonsFragment extends Fragment {
     // Uses XmlPaser class to parse xml file for lessons
     private void bringLessonItems() {
         try {
-            InputStream iStream = getResources().getAssets().open("grade1_lessons.xml");
+            InputStream iStream = getResources().getAssets().open("lessons.xml");
             XmlParser xmlParser = new XmlParser();
             HashMap<String, List> parsed = xmlParser.GradeParser(iStream);
             //Set<String> keys = parsed.keySet();
