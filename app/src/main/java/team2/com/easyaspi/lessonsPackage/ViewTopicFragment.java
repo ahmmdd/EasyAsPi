@@ -1,6 +1,8 @@
 package team2.com.easyaspi.lessonsPackage;
 
 import android.content.Context;
+import android.content.res.Resources;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -8,8 +10,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
-import bsh.EvalError;
 import bsh.Interpreter;
 import team2.com.easyaspi.R;
 import team2.com.easyaspi.databasePackage.TopicBean;
@@ -20,7 +22,7 @@ import team2.com.easyaspi.databasePackage.TopicBean;
  *   Description: Fragment that uses xml data to display content to users
  */
 
-public class ViewTopicFragment extends Fragment {
+public class ViewTopicFragment extends Fragment{
     // Private Variables
     private OnViewTopicFragmentListener mListener;
 
@@ -56,29 +58,29 @@ public class ViewTopicFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         // If argument is not null
         if (getArguments() != null) {
             Log.d("Successful: ", getArguments().getString("topicName"));
-
-            Interpreter interpreter = new Interpreter();
-            try {
-                interpreter.eval("String yolo = \"TESTING WORKING\";");
-                String sample = (String) interpreter.get("yolo");
-                Log.d("BeanShell Working?:", sample + " says YES!");
-            } catch (EvalError evalError) {
-                evalError.printStackTrace();
-            }
-
-        } else {
-            return;
         }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        // BEAN INTERPRETER
+        Interpreter interpreter = new Interpreter();
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_view_topic, container, false);
+        View view = inflater.inflate(R.layout.fragment_view_topic, container, false);
+        ImageView topic_image = (ImageView) view.findViewById(R.id.topic_image);
+        Resources res = view.getResources();
+        int resId = res.getIdentifier(getArguments().getString("image"), "drawable", getContext().getPackageName());
+        Log.d("RES ID: ", "" + resId);
+        Drawable drawable = res.getDrawable(resId);
+        topic_image.setImageDrawable(drawable);
+        //interpreter.set("image", "getArguments().getString(\"image\")");
+
+        return view;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
