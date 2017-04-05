@@ -18,7 +18,6 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.WindowManager;
 
@@ -29,9 +28,10 @@ import team2.com.easyaspi.databasePackage.ChapterBean;
 import team2.com.easyaspi.databasePackage.TopicBean;
 import team2.com.easyaspi.lessonsPackage.LessonsFragment;
 import team2.com.easyaspi.lessonsPackage.TopicsFragment;
+import team2.com.easyaspi.lessonsPackage.ViewTopicFragment;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, MainFragment.OnFragmentInteractionListener,
-        LessonsFragment.OnListFragmentInteractionListener, TopicsFragment.OnListFragmentInteractionListener {
+        LessonsFragment.OnListFragmentInteractionListener, TopicsFragment.OnListFragmentInteractionListener, ViewTopicFragment.OnViewTopicFragmentListener{
     // Private Variable
     // Set String
     private String sPreviousTitle = "";
@@ -225,5 +225,28 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     // Listener for Topics list fragment
     @Override
     public void onListFragmentInteraction(TopicBean item) {
+        try{
+            if (item != null){
+                Fragment fragment = null;
+                fragment = ViewTopicFragment.newInstance(item);
+                FragmentManager fragmentManager = getSupportFragmentManager();
+                fragmentManager.beginTransaction().replace(R.id.flContent, fragment)
+                        .addToBackStack(null) // Puts fragment into stack so back button goes back to previous state
+                        .commit();
+                DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+                drawer.closeDrawer(GravityCompat.START);
+                sPreviousTitle = getSupportActionBar().getTitle().toString();
+                sTitle = item.getTopicname();
+                // Change the toolbar title
+                if (getSupportActionBar() != null){
+                    getSupportActionBar().setTitle(sTitle);
+                }
+            } else {
+                return;
+            }
+        } catch (Exception e){
+            e.printStackTrace();
+        }
     }
+
 }

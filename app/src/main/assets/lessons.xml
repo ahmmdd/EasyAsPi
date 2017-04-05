@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<lessons>
+    <chapter number="1" name="Number Sense and Numeration">
+        <topic id="1.1" name="Quantity Relationships">
+            <image>@drawable/topic_1_1</image>
+            <instruction>First picture shows 1 pie, second picture shows two pies.
+            When you count pie from 0 to 10, 0 is smallest and 10 is biggest.  Therefore, 0 pie will
+            be less than 1 pie, and 2 pies will be more than 1 pie.  So... 2 pies are more than 0 pie!
+            </instruction>
+        </topic>
+        <topic id="1.2" name="Counting">
+            <image>@drawable/topic_1_2</image>
+            <instruction>We will learn how to count from 0 to 10.
+            0 is smallest and 1 is bigger than 0. lets count!
+            0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10..
+            From these 10 numbers, 0 is the SMALLEST number and 10 is the LARGEST number.</instruction>
+        </topic>
+        <topic id="1.3" name="Operational Sense">
+            <image>@drawable/topic_1_3</image>
+            <instruction>Addition is easy! You have 1 pie. If you get 1 more pie from your friend, you will have 2 pies! 1 plus 1 is 2!
+            When you got home with your 2 pies, mommy made 2 more pies for you.  You now have 4 pies, since 2 plus 2 is 4.
+            Substraction is easy as addition too!
+            You are hungry, so you ate 1 pie, therefore, you only have 3 pies! 4 minus 1 is 3.
+            So how many pies are there left for you to eat?</instruction>
+        </topic>
+    </chapter>
+    <chapter number="2" name="Measurement">
+        <topic id="2.1" name="Attributes, Units, and Measurement Sense">
+            <image>@drawable/topic_2_1</image>
+            <instruction>Lets try to match sizes! How many match sticks do you need to match the train's size?...
+            You need 2 matches!
+            Try to find an item at home and start matching and start counting!</instruction>
+        </topic>
+    </chapter>
+</lessons>
