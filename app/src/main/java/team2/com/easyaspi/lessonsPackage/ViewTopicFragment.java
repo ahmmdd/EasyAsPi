@@ -5,12 +5,17 @@ import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.speech.tts.TextToSpeech;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
+
+import java.util.Locale;
 
 import bsh.Interpreter;
 import team2.com.easyaspi.R;
@@ -25,6 +30,9 @@ import team2.com.easyaspi.databasePackage.TopicBean;
 public class ViewTopicFragment extends Fragment{
     // Private Variables
     private OnViewTopicFragmentListener mListener;
+    private TextToSpeech t2s; // Text to speech
+    // BEAN INTERPRETER
+    Interpreter interpreter = new Interpreter();
 
     public ViewTopicFragment() {
     }
@@ -42,7 +50,6 @@ public class ViewTopicFragment extends Fragment{
         sInstruction = topic.getInstruction();
         iChapterNumber = topic.getChapter();
         dTopicId = topic.getId();
-
         ViewTopicFragment fragment = new ViewTopicFragment();
         Bundle args = new Bundle();
         args.putString("chapterName", sChapterName);
@@ -50,7 +57,7 @@ public class ViewTopicFragment extends Fragment{
         args.putString("image", sImage);
         args.putString("instruction", sInstruction);
         args.putInt("chapterNumber", iChapterNumber);
-        args.putDouble("topidId", dTopicId);
+        args.putDouble("topicId", dTopicId);
         fragment.setArguments(args);
         return fragment;
     }
@@ -58,7 +65,16 @@ public class ViewTopicFragment extends Fragment{
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        t2s = new TextToSpeech(getContext().getApplicationContext(), new TextToSpeech.OnInitListener() {
+            @Override
+            public void onInit(int i) {
+                try{
+                    t2s.setLanguage(Locale.ENGLISH);
+                } catch (Exception e){
+                    e.printStackTrace();
+                }
+            }
+        });
         // If argument is not null
         if (getArguments() != null) {
             Log.d("Successful: ", getArguments().getString("topicName"));
@@ -68,18 +84,26 @@ public class ViewTopicFragment extends Fragment{
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // BEAN INTERPRETER
-        Interpreter interpreter = new Interpreter();
+
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_view_topic, container, false);
         ImageView topic_image = (ImageView) view.findViewById(R.id.topic_image);
         Resources res = view.getResources();
         int resId = res.getIdentifier(getArguments().getString("image"), "drawable", getContext().getPackageName());
-        Log.d("RES ID: ", "" + resId);
         Drawable drawable = res.getDrawable(resId);
         topic_image.setImageDrawable(drawable);
-        //interpreter.set("image", "getArguments().getString(\"image\")");
-
+        // Header
+        TextView topic_header_text = (TextView) view.findViewById(R.id.topic_header_text);
+        topic_header_text.setText(getArguments().getString("chapterName") + "\n" + getArguments().getString("topicName") + " (" +
+                getArguments().getDouble("topicId") + ")");
+        // Read Button
+        Button read_button = (Button) view.findViewById(R.id.topic_play_button);
+        read_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Text2Speech(getArguments().getString("instruction"));
+            }
+        });
         return view;
     }
 
@@ -109,5 +133,9 @@ public class ViewTopicFragment extends Fragment{
 
     public interface OnViewTopicFragmentListener {
         void onFragmentInteraction(Uri uri);
+    }
+
+    public void Text2Speech(String text){
+        t2s.speak(text, TextToSpeech.QUEUE_FLUSH, null);
     }
 }

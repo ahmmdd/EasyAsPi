@@ -3,7 +3,10 @@
     <chapter number="1" name="Number Sense and Numeration">
         <topic id="1.1" name="Quantity Relationships">
             <image>@drawable/topic_1_1</image>
-            <instruction>Description: </instruction>
+            <instruction>First picture shows 1 pie, second picture shows two pies.
+            When you count pie from 0 to 10, 0 is smallest and 10 is biggest.  Therefore, 0 pie will
+            be less than 1 pie, and 2 pies will be more than 1 pie.  So... 2 pies are more than 0 pie!
+            </instruction>
         </topic>
         <topic id="1.2" name="Counting">
             <image>@drawable/topic_1_2</image>
