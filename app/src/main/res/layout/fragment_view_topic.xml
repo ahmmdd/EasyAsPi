@@ -23,6 +23,7 @@
             android:id="@+id/topic_play_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="READ" />
+            android:text="READ"
+            android:drawableLeft="@android:drawable/ic_btn_speak_now"/>
     </LinearLayout>
 </ScrollView>

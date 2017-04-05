@@ -69,7 +69,10 @@ public class ViewTopicFragment extends Fragment{
             @Override
             public void onInit(int i) {
                 try{
-                    t2s.setLanguage(Locale.ENGLISH);
+                    // Change language to US
+                    t2s.setLanguage(Locale.US);
+                    // Set language speed to 80%
+                    t2s.setSpeechRate(0.8f);
                 } catch (Exception e){
                     e.printStackTrace();
                 }
