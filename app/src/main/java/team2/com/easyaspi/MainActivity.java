@@ -7,6 +7,7 @@
 
 package team2.com.easyaspi;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
@@ -140,7 +141,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            finish();
+                            //finish();
+                            // Return to the start activity
+                            Intent intent = new Intent(MainActivity.this, StartActivity.class);
+                            startActivity(intent);
                         }
                     })
                     // If no
