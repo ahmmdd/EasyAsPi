@@ -8,20 +8,20 @@ package team2.com.easyaspi.databasePackage;
 *   *******************************************************************
 *   HOW TO USE THIS XmlParser
 *   XmlParser will return HashMap with KEY and ArrayLists
-*   There will be total 2 keys in returned HashMap (1.chapters, 2. topics)
+*   There will be total 2 keys in returned HashMap (1.chaptersList, 2. topicsList)
 *   EXAMPLE
     try {
         InputStream iStream = getBaseContext().getAssets().open("grade1_lessons.xml");
         XmlParser xmlParser = new XmlParser();
         HashMap<String, List> parsed = xmlParser.GradeParser(iStream);
         Set<String> keys = parsed.keySet();
-        // Instatiate ArrayList for chapters and topics
-        List<ChapterBean> chapters = new ArrayList<ChapterBean>();
-        List<TopicBean> topics = new ArrayList<TopicBean>();
-        chapters = parsed.get("chapters"); // Stores arrays of Chapter Objects
-        topics = parsed.get("topics"); // Stores arrays of Topic Objects
-        // Example of Printing Chapter name from chapters array
-        Log.d("SAMPLE CHAPTER NAME: ", chapters.get(0).getChaptername());
+        // Instatiate ArrayList for chaptersList and topicsList
+        List<ChapterBean> chaptersList = new ArrayList<ChapterBean>();
+        List<TopicBean> topicsList = new ArrayList<TopicBean>();
+        chaptersList = parsed.get("chaptersList"); // Stores arrays of Chapter Objects
+        topicsList = parsed.get("topicsList"); // Stores arrays of Topic Objects
+        // Example of Printing Chapter name from chaptersList array
+        Log.d("SAMPLE CHAPTER NAME: ", chaptersList.get(0).getChaptername());
 
     } catch (IOException e) {
         e.printStackTrace();
@@ -77,12 +77,11 @@ public class XmlParser {
                             tempChapter = Integer.parseInt(xpp.getAttributeValue(null, "number"));
                             chapter.setChapter(tempChapter);
                             chapter.setChaptername(xpp.getAttributeValue(null, "name"));
-                            // Set topic properties
-                            topic.setChapter(chapter.getChapter());
-                            topic.setChaptername(chapter.getChaptername());
                             break;
                         } else if (tagName.equals("topic")){
                             // Set topic properties
+                            topic.setChapter(chapter.getChapter());
+                            topic.setChaptername(chapter.getChaptername());
                             topic.setTopicid(xpp.getAttributeValue(null, "id"));
                             topic.setTopicname(xpp.getAttributeValue(null, "name"));
                             break;
@@ -114,8 +113,8 @@ public class XmlParser {
                 event = xpp.next();
             }
             // Add chapterList and topicList to hash
-            hash.put("chapters", chapterList);
-            hash.put("topics", topicList);
+            hash.put("chaptersList", chapterList);
+            hash.put("topicsList", topicList);
         }
         catch (Exception e){
             e.printStackTrace();

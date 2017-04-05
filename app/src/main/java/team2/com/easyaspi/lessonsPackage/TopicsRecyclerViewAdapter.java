@@ -1,4 +1,4 @@
-package team2.com.easyaspi;
+package team2.com.easyaspi.lessonsPackage;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -6,22 +6,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import team2.com.easyaspi.GradesFragment.OnListFragmentInteractionListener;
-import team2.com.easyaspi.dummy.DummyContent.DummyItem;
+import team2.com.easyaspi.R;
+import team2.com.easyaspi.databasePackage.TopicBean;
+import team2.com.easyaspi.lessonsPackage.TopicsFragment.OnListFragmentInteractionListener;
+
 
 import java.util.List;
 
-/**
- * {@link RecyclerView.Adapter} that can display a {@link DummyItem} and makes a call to the
- * specified {@link OnListFragmentInteractionListener}.
- * TODO: Replace the implementation with code for your data type.
- */
-public class MyGradesRecyclerViewAdapter extends RecyclerView.Adapter<MyGradesRecyclerViewAdapter.ViewHolder> {
+public class TopicsRecyclerViewAdapter extends RecyclerView.Adapter<TopicsRecyclerViewAdapter.ViewHolder> {
 
-    private final List<DummyItem> mValues;
+    private final List<TopicBean> mValues;
     private final OnListFragmentInteractionListener mListener;
 
-    public MyGradesRecyclerViewAdapter(List<DummyItem> items, OnListFragmentInteractionListener listener) {
+    public TopicsRecyclerViewAdapter(List<TopicBean> items, OnListFragmentInteractionListener listener) {
         mValues = items;
         mListener = listener;
     }
@@ -29,15 +26,15 @@ public class MyGradesRecyclerViewAdapter extends RecyclerView.Adapter<MyGradesRe
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.fragment_grades, parent, false);
+                .inflate(R.layout.fragment_topics, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
-        holder.mIdView.setText(mValues.get(position).id);
-        holder.mContentView.setText(mValues.get(position).content);
+        holder.mIdView.setText("" + mValues.get(position).getId());
+        holder.mContentView.setText(mValues.get(position).getTopicname());
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -60,7 +57,7 @@ public class MyGradesRecyclerViewAdapter extends RecyclerView.Adapter<MyGradesRe
         public final View mView;
         public final TextView mIdView;
         public final TextView mContentView;
-        public DummyItem mItem;
+        public TopicBean mItem;
 
         public ViewHolder(View view) {
             super(view);
