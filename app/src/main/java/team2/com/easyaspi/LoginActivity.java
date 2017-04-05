@@ -21,7 +21,6 @@ public class LoginActivity extends AppCompatActivity {
         // To Remove Status Bar
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_login);
-
     }
 
     // When Login Profile Button  is pressed
@@ -57,7 +56,7 @@ public class LoginActivity extends AppCompatActivity {
         Gson gson = new Gson();
         String json = gson.toJson(profile);
         prefsEditor.putString("SelectedProfile", json);
-        prefsEditor.commit();
+        prefsEditor.apply();
 
         // Other stuff that isn't being used
         //SharedPreferences sharedPref = getPreferences(MODE_PRIVATE);

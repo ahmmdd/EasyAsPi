@@ -24,6 +24,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
@@ -40,6 +41,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         // To Remove Status Bar
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_main);
+
         // Get the value from the intent
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -56,16 +58,35 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.flContent, fragment).commit();
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        final DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close) {
+            public void onDrawerClosed(View view) {
+                super.onDrawerClosed(view);
+            }
+
+            /** Called when a drawer has settled in a completely open state. */
+            public void onDrawerOpened(View drawerView) {
+                TextView userTextInfo = (TextView) findViewById(R.id.textView_userName);
+                ImageView userProfileImage = (ImageView) findViewById(R.id.imageView_userLogo);
+
+                // To retrieve current profile
+                SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
+                Gson gson = new Gson();
+                String json = sharedPref.getString("SelectedProfile", "");
+                Profile profile = gson.fromJson(json, Profile.class);
+
+                userTextInfo.setText(profile.getName());
+                userProfileImage.setImageResource(profile.setImage(userProfileImage, MainActivity.this));
+
+                super.onDrawerOpened(drawerView);
+            }
+        };
         drawer.setDrawerListener(toggle);
         toggle.syncState();
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-        toggle.onDrawerOpened(drawer.getRootView());
+        //toggle.onDrawerOpened(drawer.getRootView());
     }
-
-    
 
     @Override
     public void onBackPressed() {
@@ -94,22 +115,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     /*
     * Displays Menu Item When Hamburger Button is Clicked
      */
-    @SuppressWarnings("StatementWithEmptyBody")
+    //@SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         // Create a frament
         Fragment fragment = null; // Declare null fragment object
         Class fragmentClass = null; // Not defining which type of fragment
-
-        TextView userTextInfo = (TextView) findViewById(R.id.textView_userName);
-
-        //SharedPreferences sharedPref = getPreferences(MODE_PRIVATE); // Wont work
-        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
-        Gson gson = new Gson();
-        String json = sharedPref.getString("SelectedProfile", "");
-        Profile profile = gson.fromJson(json, Profile.class);
-        userTextInfo.setText(profile.getName());
 
         int id = item.getItemId();
         if (id == R.id.nav_lesson) {
