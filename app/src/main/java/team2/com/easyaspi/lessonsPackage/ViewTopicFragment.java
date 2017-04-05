@@ -3,7 +3,6 @@ package team2.com.easyaspi.lessonsPackage;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
-import android.net.Uri;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
 import android.support.v4.app.Fragment;
@@ -17,7 +16,6 @@ import android.widget.TextView;
 
 import java.util.Locale;
 
-import bsh.Interpreter;
 import team2.com.easyaspi.R;
 import team2.com.easyaspi.databasePackage.TopicBean;
 /*
@@ -31,8 +29,6 @@ public class ViewTopicFragment extends Fragment{
     // Private Variables
     private OnViewTopicFragmentListener mListener;
     private TextToSpeech t2s; // Text to speech
-    // BEAN INTERPRETER
-    Interpreter interpreter = new Interpreter();
 
     public ViewTopicFragment() {
     }
@@ -110,13 +106,6 @@ public class ViewTopicFragment extends Fragment{
         return view;
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
-    }
-
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -132,10 +121,10 @@ public class ViewTopicFragment extends Fragment{
     public void onDetach() {
         super.onDetach();
         mListener = null;
+        t2s.stop();
     }
 
     public interface OnViewTopicFragmentListener {
-        void onFragmentInteraction(Uri uri);
     }
 
     public void Text2Speech(String text){
