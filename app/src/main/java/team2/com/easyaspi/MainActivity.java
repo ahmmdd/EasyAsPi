@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.flContent, fragment).commit();
 
-        final DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close) {
             public void onDrawerClosed(View view) {
                 super.onDrawerClosed(view);
@@ -116,7 +116,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     /*
     * Displays Menu Item When Hamburger Button is Clicked
      */
-    //@SuppressWarnings("StatementWithEmptyBody")
+    @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
@@ -125,13 +125,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Class fragmentClass = null; // Not defining which type of fragment
 
         int id = item.getItemId();
-        if (id == R.id.nav_lesson) {
-            // Handle "Select a Lesson"
-            fragmentClass = GradesFragment.class;
-        } else if(id == R.id.nav_profile) {
+        if(id == R.id.nav_profile) {
+            // Go to "View Profile"
             fragmentClass = ProfileFragment.class;
         }
-        else if (id == R.id.nav_logout) {
+        else if (id == R.id.nav_lesson) {
+            // Handle "Select a Lesson"
+            fragmentClass = GradesFragment.class;
+        }  else if (id == R.id.nav_logout) {
             // When user presses Logout button
             new AlertDialog.Builder(this)
                     .setIcon(android.R.drawable.ic_dialog_alert)
