@@ -29,5 +29,6 @@ dependencies {
     compile 'com.android.support.constraint:constraint-layout:1.0.1'
     compile 'com.android.support:support-v4:25.1.0'
     compile 'com.android.support:recyclerview-v7:25.1.0'
+    compile 'com.loopj.android:android-async-http:1.4.9'
     compile files('libs/bsh-2.0b4.jar')
 }
