@@ -7,8 +7,12 @@
 
 package team2.com.easyaspi;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.provider.Settings;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -19,7 +23,12 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.WindowManager;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,6 +55,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         // To Remove Status Bar
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_main);
+
         // Get the value from the intent
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -65,13 +75,33 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         fragmentManager.beginTransaction().replace(R.id.flContent, fragment).commit();
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close) {
+            public void onDrawerClosed(View view) {
+                super.onDrawerClosed(view);
+            }
+
+            /** Called when a drawer has settled in a completely open state. */
+            public void onDrawerOpened(View drawerView) {
+                TextView userTextInfo = (TextView) findViewById(R.id.textView_userName);
+                ImageView userProfileImage = (ImageView) findViewById(R.id.imageView_userLogo);
+
+                // To retrieve current profile
+                SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
+                Gson gson = new Gson();
+                String json = sharedPref.getString("SelectedProfile", "");
+                Profile profile = gson.fromJson(json, Profile.class);
+
+                userTextInfo.setText(profile.getName());
+                userProfileImage.setImageResource(profile.setImage(userProfileImage, MainActivity.this));
+
+                super.onDrawerOpened(drawerView);
+            }
+        };
         drawer.setDrawerListener(toggle);
         toggle.syncState();
         // Define and set NavigationView (Left navigation panel)
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-
     }
 
     @Override
@@ -117,6 +147,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
+
         changeView(item.getItemId());
         return true;
     }
@@ -132,6 +163,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.nav_backToMain:
                 fragmentClass = MainFragment.class;
                 sTitle = "Easy as PI";
+                break;
+            case R.id.nav_profile:
+                fragmentClass = ProfileFragment.class;
+                sTitle = "View Profile";
                 break;
             case R.id.nav_lesson:
                 fragmentClass = LessonsFragment.class;

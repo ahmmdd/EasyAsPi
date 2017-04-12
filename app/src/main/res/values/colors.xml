@@ -2,6 +2,7 @@
 <resources>
     <color name="colorPrimary">#F74A4A</color> <!-- Primary background colour: RED -->
     <color name="colorMenu">#FFC9C9</color> <!-- Menu background color: Pink -->
+    <color name="colorBanner">#de7878</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>"
 </resources>

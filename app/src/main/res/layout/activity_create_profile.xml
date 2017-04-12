@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorMenu" >
+
+    <TextView
+        android:id="@+id/profile_create_header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Create a Profile"
+        android:textSize="20sp"
+        android:textColor="#FFFFFF"
+        android:background="@color/colorPrimary"
+        android:textAlignment="textStart"
+        android:paddingTop="15dp"
+        android:paddingStart="50dp"
+        android:paddingBottom="14dp"/>
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Select an image"
+        android:textSize="20sp"
+        android:layout_marginTop="30dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"/>
+
+    <Spinner
+        android:id="@+id/profile_create_spinner_image"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:background="#ffeeee"
+        android:entries="@array/profile_images_array"
+        android:popupBackground="#ffeeee"
+        android:prompt="@string/profile_image_prompt" />
+
+    <TextView
+        android:id="@+id/profile_create_tvName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Enter your name"
+        android:labelFor="@+id/profile_create_etName"
+        android:textSize="20sp"
+        android:layout_marginTop="30dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp" />
+
+    <EditText
+        android:id="@+id/profile_create_etName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp"
+        android:background="#ffeeee"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text=""
+        android:maxLength="10"/>
+
+    <TextView
+        android:id="@+id/profile_create_tvDetails"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Details"
+        android:labelFor="@+id/profile_create_etDetails"
+        android:textSize="20sp"
+        android:layout_marginTop="30dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp" />
+
+    <EditText
+        android:id="@+id/profile_create_etDetails"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp"
+        android:background="#ffeeee"
+        android:ems="10"
+        android:inputType="textMultiLine"
+        android:text=""
+        android:lines="3"
+        android:gravity="start|top"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <Button
+            android:id="@+id/profile_create_btnCreate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="70dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginStart="10dp"
+            android:background="@color/colorPrimary"
+            android:text="Create Profile" />
+
+        <Button
+            android:id="@+id/profile_create_btnCancel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginStart="10dp"
+            android:background="@color/colorPrimary"
+            android:text="Cancel" />
+
+    </RelativeLayout>
+
+</LinearLayout>
