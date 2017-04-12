@@ -1,5 +1,6 @@
 package team2.com.easyaspi.apiPackage;
 
+import android.app.Fragment;
 import android.content.Context;
 import android.util.Log;
 
@@ -17,32 +18,15 @@ import cz.msebera.android.httpclient.Header;
 
 public class ApiCallTasks {
 
-    private static final String TAG = "FEEDBACK";
-    private Context context;
+    private static AsyncHttpClient client = new AsyncHttpClient();
+    private static String BASE_URL_NOTIFICATION ="https://easyaspi-api.herokuapp.com/";
 
 
-    AsyncHttpClient client;
-    RequestParams requestParams;
+    public static void getNotifications(Context context, String url, Header[] headers, RequestParams requestParams, JsonHttpResponseHandler responseHandler) {
 
-    String BASE_URL ="https://easyaspi-api.herokuapp.com/api/feedback";
-    String jsonResponse;
-
-    public ApiCallTasks(Context context) {
-        client = new AsyncHttpClient();
-        requestParams = new RequestParams();
-        this.context = context;
+        client.get(context,getAbsoluteUrl(url),headers,requestParams,responseHandler);
     }
-
-    public void executeApiCall(String query) {
-        requestParams.put("get",query);
-
-        client.get(BASE_URL,requestParams, new JsonHttpResponseHandler(){
-            public void onSuccess(int statusCode, Header[] headers, JSONArray response){
-                super.onSuccess(statusCode,headers,response);
-                jsonResponse = response.toString();
-                //apiListener.taskCompleted(jsonResponse);
-                Log.i(TAG,"Successfully called Api: " + jsonResponse);
-            }
-        });
+    private static String getAbsoluteUrl(String relativeUrl) {
+        return BASE_URL_NOTIFICATION + relativeUrl;
     }
 }
