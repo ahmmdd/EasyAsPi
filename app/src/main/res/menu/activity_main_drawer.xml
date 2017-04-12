@@ -6,6 +6,14 @@
             android:id="@+id/nav_backToMain"
             android:icon="@android:drawable/ic_menu_myplaces"
             android:title="Back to Main" />
+    </group>
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_profile"
+            android:icon="@android:drawable/ic_menu_view"
+            android:title="View Profile" />
+    </group>
+    <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_lesson"
             android:icon="@android:drawable/ic_menu_edit"

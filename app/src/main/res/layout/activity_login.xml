@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorMenu">
+
+    <TextView
+        android:id="@+id/profile_create_header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Select a Profile"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:textColor="#FFFFFF"
+        android:background="@color/colorPrimary"
+        android:textAlignment="textStart"
+        android:paddingTop="15dp"
+        android:paddingStart="72dp"
+        android:paddingBottom="14dp"/>
+
+    <Button
+        android:id="@+id/button_login_profile_1"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:layout_gravity="center_horizontal"
+        android:text="Profile 1"
+        android:theme="@style/StartButtons"
+        android:onClick="onProfilePressed"/>
+    <Button
+        android:id="@+id/button_login_profile_2"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:layout_gravity="center_horizontal"
+        android:text="Profile 2"
+        android:theme="@style/StartButtons"
+        android:onClick="onProfilePressed"/>
+</LinearLayout>
