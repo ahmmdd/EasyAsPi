@@ -53,8 +53,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     // Set String
     private String sPreviousTitle = "";
     private String sTitle = "";
-    //Set ListView
-    private ListView notificationList;
+
 
     /*
     *   ON CREATE METHOD
