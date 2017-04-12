@@ -9,26 +9,14 @@
         android:id="@+id/profile_create_header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Easy as PI"
+        android:text="Create a Profile"
         android:textSize="20sp"
         android:textColor="#FFFFFF"
         android:background="@color/colorPrimary"
         android:textAlignment="textStart"
-        android:paddingTop="10dp"
+        android:paddingTop="15dp"
         android:paddingStart="50dp"
-        android:paddingBottom="10dp"/>
-
-    <TextView
-        android:id="@+id/profile_create_title"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Create a Profile"
-        android:textSize="30sp"
-        android:textStyle="bold"
-        android:background="#f78888"
-        android:textAlignment="center"
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp"/>
+        android:paddingBottom="14dp"/>
 
     <TextView
         android:id="@+id/textView3"

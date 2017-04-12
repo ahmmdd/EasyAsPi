@@ -11,6 +11,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
@@ -34,6 +35,11 @@ public class ProfileFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
         final Context context = view.getContext();
+
+        // Change the toolbar title
+        if (((AppCompatActivity)getActivity()).getSupportActionBar() != null){
+            ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("View Profile");
+        }
 
         // Set up a fall back profile
         Profile profile = new Profile("0", "Profile 0", "This is profile 0", "logo");
@@ -97,6 +103,13 @@ public class ProfileFragment extends Fragment {
         return view;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        // Set title
+        ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle(R.string.theTitle);
+    }
+
     // Edit profile
     public void EditProfile(View view){
 
@@ -104,10 +117,14 @@ public class ProfileFragment extends Fragment {
         Class fragmentClass = EditProfileFragment.class;
 
         try {
+            ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Edit Profile");
+
             // Create new instance
             fragment = (Fragment) fragmentClass.newInstance();
             FragmentManager fragmentManager = getActivity().getSupportFragmentManager();//getSupportFragmentManager();
-            fragmentManager.beginTransaction().replace(R.id.flContent, fragment).commit();
+            fragmentManager.beginTransaction().replace(R.id.flContent, fragment)
+                    .addToBackStack(null) // Puts fragment into stack so back button goes back to previous state
+                    .commit();
         }
         catch (Exception e) {
             e.printStackTrace();
