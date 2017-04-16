@@ -33,7 +33,6 @@ import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import team2.com.easyaspi.apiPackage.NotificationFragment;
 import team2.com.easyaspi.databasePackage.ChapterBean;
 import team2.com.easyaspi.databasePackage.TopicBean;
@@ -47,6 +46,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     // Set String
     private String sPreviousTitle = "";
     private String sTitle = "";
+    //Set ListView
+    private ListView notificationList;
 
 
     /*
