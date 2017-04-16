@@ -29,7 +29,12 @@ public class ApiCallTasks {
     //method getNotifications that will receive context, url, header, request parms, responsehandler
     public static void getNotifications(Context context, String url, Header[] headers, RequestParams requestParams, JsonHttpResponseHandler responseHandler) {
 
-        //set httpclient url, header, request params, response handler
+    //set httpclient url, header, request params, response handler
+    private static AsyncHttpClient client = new AsyncHttpClient();
+    private static String BASE_URL_NOTIFICATION ="https://easyaspi-api.herokuapp.com/";
+
+
+    public static void getNotifications(Context context, String url, Header[] headers, RequestParams requestParams, JsonHttpResponseHandler responseHandler) {
         client.get(context,getAbsoluteUrl(url),headers,requestParams,responseHandler);
     }
     private static String getAbsoluteUrl(String relativeUrl) {

@@ -11,6 +11,7 @@ import org.json.JSONObject;
  */
 
 public class NotificationBean {
+
     //variables
     private String id;
     private String subject;
@@ -27,6 +28,7 @@ public class NotificationBean {
         }
 
     }
+
     //getters and setters
     public String getId() {
         return id;

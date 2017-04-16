@@ -13,16 +13,22 @@ import android.widget.ImageView;
 
 public class Profile {
     private String id;
-    private String name; // Limit the length of the name to 10 characters
+    private String name; // Limit the length of the name to 12 characters
     private String details;
     private String imageName;
+    private static  int currentID = 1; // This isn't working
 
-    public Profile(String id, String name, String details, String imageName) {
-        this.id = id;
+    public Profile(String name, String details, String imageName) {
+        this.id = "" + currentID;
         this.name = name;
         this.details = details;
         this.imageName = imageName;
+        currentID++;
     }
+
+    //Id
+    public String getId() { return this.id; }
+    //public void setId(String id) { this.id = id; }
 
     // Name
     public String getName() {
@@ -56,7 +62,7 @@ public class Profile {
 
     @Override
     public String toString() {
-        return String.format("ID" + this.id + ", Name: " + getName() + ", Image name: " + getImageName() + ", Details: " + getDetails());
+        return String.format("ID: " + this.id + ", Name: " + getName() + ", Image name: " + getImageName() + ", Details: " + getDetails());
     }
 }
 

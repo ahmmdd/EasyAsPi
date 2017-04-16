@@ -14,6 +14,10 @@ import android.widget.EditText;
 import android.widget.Spinner;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.lang.reflect.Type;
+import java.util.List;
 
 /**
  * Created by Selina on 2017-03-28.
@@ -34,22 +38,6 @@ public class CreateProfileActivity extends AppCompatActivity {
             public void onClick(View v) {
                 // Call the edit profile method
                 CreateProfile();
-                /*// Verify that the user wants to create a profile
-                new AlertDialog.Builder(CreateProfileActivity.this)
-                        .setIcon(android.R.drawable.ic_dialog_alert)
-                        .setTitle("Create Profile")
-                        .setMessage("Are you sure you want to create this profile?")
-                        // if yes
-                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                // Call the edit profile method
-                                CreateProfile();
-                            }
-                        })
-                        // If no
-                        .setNegativeButton("No", null)
-                        .show();*/
             }
         });
 
@@ -76,11 +64,11 @@ public class CreateProfileActivity extends AppCompatActivity {
         });
     }
 
-    public void CreateProfile() { //View view) {
+    public void CreateProfile() {
 
         try{
             // Set up a fall back profile
-            Profile profile = new Profile("0", "Profile 0", "This is profile 0", "logo");
+            Profile profile = new Profile("Profile 0", "This is profile 0", "logo");
 
             // Get components
             EditText etProfileName = (EditText) findViewById(R.id.profile_create_etName);
@@ -99,6 +87,8 @@ public class CreateProfileActivity extends AppCompatActivity {
             String json = gson.toJson(profile);
             prefsEditor.putString("SelectedProfile", json);
             prefsEditor.apply();
+
+            UpdateProfileList(profile);
         }
         catch(Exception exception){
             System.out.println("CreateProfileFragment Error: " + exception.getMessage());
@@ -107,5 +97,31 @@ public class CreateProfileActivity extends AppCompatActivity {
         // Go to the main activity
         Intent intent = new Intent(CreateProfileActivity.this, MainActivity.class);
         startActivity(intent);
+    }
+
+    public void UpdateProfileList(Profile profile) {
+        List<Profile> profileList = null;
+
+        try{
+            // To retrieve the list of profiles
+            SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
+            Gson gson = new Gson();
+            String json = sharedPref.getString("ProfileList", "");//"ProfileList";
+            Type listType = new TypeToken<List<Profile>>(){}.getType();
+            profileList = (List<Profile>) gson.fromJson(json, listType);
+
+            // Add new profile to the list
+            profileList.add(profile);
+
+            // Update the profile list
+            SharedPreferences.Editor prefsEditor = sharedPref.edit();
+            String jsonUpdate = gson.toJson(profileList);
+            prefsEditor.putString("ProfileList", jsonUpdate);
+            prefsEditor.apply();
+
+        }
+        catch(Exception exception){
+            System.out.println("CP UpdateProfileList Error: " + exception.getMessage());
+        }
     }
 }

@@ -61,8 +61,10 @@ public class NotificationFragment extends Fragment{
         super.onDetach();
     }
 
+
     //Method that will transfer all the JSON obj that was pulled from ApiCallTasks
-    private void getNotifications(){
+    public void getNotifications(){
+
         List<Header> headers = new ArrayList<>();
         headers.add(new BasicHeader("Accept", "json"));
 
@@ -81,10 +83,12 @@ public class NotificationFragment extends Fragment{
                         e.printStackTrace();
                     }
                 }
+
                 //find ListView list_notification
                 notificationList = (ListView)view.findViewById(R.id.list_notifications);
                 notificationList.setAdapter(adapter);
             }
+
 
             //Overriding onFailure method when ApiCallTasks cannot return headers
             @Override
