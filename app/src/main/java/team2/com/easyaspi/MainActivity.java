@@ -7,12 +7,10 @@
 
 package team2.com.easyaspi;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.provider.Settings;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -35,11 +33,6 @@ import com.google.gson.Gson;
 import java.util.ArrayList;
 import java.util.List;
 
-import cz.msebera.android.httpclient.Header;
-import cz.msebera.android.httpclient.message.BasicHeader;
-import team2.com.easyaspi.adaptersPackage.NotificationAdapter;
-import team2.com.easyaspi.apiPackage.ApiCallTasks;
-import team2.com.easyaspi.apiPackage.NotificationBean;
 import team2.com.easyaspi.apiPackage.NotificationFragment;
 import team2.com.easyaspi.databasePackage.ChapterBean;
 import team2.com.easyaspi.databasePackage.TopicBean;
@@ -157,7 +150,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-
         changeView(item.getItemId());
         return true;
     }
