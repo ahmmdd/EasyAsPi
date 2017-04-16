@@ -6,6 +6,20 @@
     <string name="label_subject">Subject:</string>
     <string name="label_notification">Notification:</string>
 
+    <string name="theTitle">View Profile</string>
+
+    <string name="profile_image_prompt">Choose a profile image</string>
+
+    <string-array name="profile_images_array">
+        <item>cow</item>
+        <item>goat</item>
+        <item>owl</item>
+        <item>penguin</item>
+        <item>pig</item>
+    </string-array>
+
+
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="title_lessons">Lessons</string>
 

@@ -50,4 +50,17 @@ public class StartActivity extends AppCompatActivity {
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
+
+    // When Create Profile Button  is pressed
+    public void onCreateProfilePressed(View view){
+        Intent intent = new Intent(this, CreateProfileActivity.class);
+        startActivity(intent);
+    }
+
+    // When Login Profile Button  is pressed
+    public void onLoginProfilePressed(View view){
+        Intent intent = new Intent(this, LoginActivity.class);
+        startActivity(intent);
+    }
+
 }
