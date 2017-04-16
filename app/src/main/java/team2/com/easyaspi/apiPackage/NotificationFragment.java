@@ -26,6 +26,7 @@ import team2.com.easyaspi.adaptersPackage.NotificationAdapter;
 
 /**
  * Created by DLau on 2017-04-12.
+ * File name: NotificationFragment.java
  */
 
 public class NotificationFragment extends Fragment{
@@ -60,12 +61,16 @@ public class NotificationFragment extends Fragment{
         super.onDetach();
     }
 
-    private void getNotifications(){
+
+    //Method that will transfer all the JSON obj that was pulled from ApiCallTasks
+    public void getNotifications(){
+
         List<Header> headers = new ArrayList<>();
         headers.add(new BasicHeader("Accept", "json"));
 
         ApiCallTasks.getNotifications(getActivity().getApplicationContext(),"api/notification",headers.toArray(new Header[headers.size()]),null, new JsonHttpResponseHandler() {
 
+            //Overriding onSuccess method that will get the JSON obj and display onto the ListView. Execute when ApiCallTasks returns headers
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONArray response){
                 ArrayList<NotificationBean> notificationArray = new ArrayList<NotificationBean>();
@@ -78,10 +83,14 @@ public class NotificationFragment extends Fragment{
                         e.printStackTrace();
                     }
                 }
+
+                //find ListView list_notification
                 notificationList = (ListView)view.findViewById(R.id.list_notifications);
                 notificationList.setAdapter(adapter);
             }
 
+
+            //Overriding onFailure method when ApiCallTasks cannot return headers
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONArray errorResponse) {
                 super.onFailure(statusCode, headers, throwable, errorResponse);

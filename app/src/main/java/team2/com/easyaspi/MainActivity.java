@@ -7,6 +7,7 @@
 
 package team2.com.easyaspi;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
@@ -32,7 +33,6 @@ import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import team2.com.easyaspi.apiPackage.NotificationFragment;
 import team2.com.easyaspi.databasePackage.ChapterBean;
 import team2.com.easyaspi.databasePackage.TopicBean;
@@ -46,6 +46,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     // Set String
     private String sPreviousTitle = "";
     private String sTitle = "";
+    //Set ListView
+    private ListView notificationList;
 
 
     /*
@@ -188,7 +190,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                finish();
+                                //finish();
+                                // Return to the start activity
+                                Intent intent = new Intent(MainActivity.this, StartActivity.class);
+                                startActivity(intent);
                             }
                         })
                         // If no
