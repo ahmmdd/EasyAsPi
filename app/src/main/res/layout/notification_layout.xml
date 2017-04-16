@@ -12,32 +12,36 @@
     <ListView
         android:id="@+id/list_notifications"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:textColor="#000000"/>
 
     <TextView
         android:id="@+id/label_subject"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/label_subject"
-        />
+        android:textColor="#000000" />
     <TextView
         android:id="@+id/value_subject"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignTop="@id/label_subject"
-        android:text="TextView" />
+        android:text="TextView"
+        android:textColor="#000000"/>
 
     <TextView
         android:id="@+id/label_notification"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/label_notification" />
+        android:text="@string/label_notification"
+        android:textColor="#000000"/>
 
     <TextView
         android:id="@+id/value_notification"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignTop="@id/label_notification"
-        android:text="TextView" />
+        android:text="TextView"
+        android:textColor="#000000"/>
 
 </LinearLayout>

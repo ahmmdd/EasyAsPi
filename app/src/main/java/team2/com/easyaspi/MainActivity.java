@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     // Set String
     private String sPreviousTitle = "";
     private String sTitle = "";
-    
+
     /*
     *   ON CREATE METHOD
      */
