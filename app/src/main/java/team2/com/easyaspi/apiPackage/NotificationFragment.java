@@ -60,7 +60,7 @@ public class NotificationFragment extends Fragment{
         super.onDetach();
     }
 
-    private void getNotifications(){
+    public void getNotifications(){
         List<Header> headers = new ArrayList<>();
         headers.add(new BasicHeader("Accept", "json"));
 
