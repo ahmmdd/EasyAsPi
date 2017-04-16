@@ -6,9 +6,12 @@ import org.json.JSONObject;
 
 /**
  * Created by DLau on 2017-04-10.
+ * File name: NotificationBean.java
+ * File description: Model that will hold data for notification
  */
 
 public class NotificationBean {
+    //variables
     private String id;
     private String subject;
     private String notification;
@@ -24,7 +27,7 @@ public class NotificationBean {
         }
 
     }
-
+    //getters and setters
     public String getId() {
         return id;
     }
