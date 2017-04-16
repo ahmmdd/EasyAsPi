@@ -18,7 +18,9 @@ import android.widget.EditText;
 import android.widget.Spinner;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,7 +36,7 @@ public class EditProfileFragment extends Fragment {
         final Context context = view.getContext();
 
         // Set up a fall back profile
-        Profile profile = new Profile("0", "Profile 0", "This is profile 0", "logo");
+        Profile profile = null;
 
         // Get components
         EditText etProfileName = (EditText) view.findViewById(R.id.profile_edit_etName);
@@ -116,7 +118,6 @@ public class EditProfileFragment extends Fragment {
                 itemPosition = i;
             }
         }
-
         return itemPosition;
     }
 
@@ -126,7 +127,6 @@ public class EditProfileFragment extends Fragment {
         Class fragmentClass = ProfileFragment.class;
 
         try {
-
             ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("View Profile");
             super.getActivity().onBackPressed();
         }
@@ -139,9 +139,6 @@ public class EditProfileFragment extends Fragment {
     public void UpdateProfile(View view) {
 
         try{
-            // Set up a fall back profile
-            Profile profile = new Profile("0", "Profile 0", "This is profile 0", "logo");
-
             // Get components
             EditText etProfileName = (EditText) view.findViewById(R.id.profile_edit_etName);
             EditText etProfileDetails = (EditText) view.findViewById(R.id.profile_edit_etDetails);
@@ -151,18 +148,38 @@ public class EditProfileFragment extends Fragment {
             SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this.getContext());
             Gson gson = new Gson();
             String json = sharedPref.getString("SelectedProfile", "");
-            profile = gson.fromJson(json, Profile.class);
+            Profile profile = gson.fromJson(json, Profile.class);
 
-            // Update current profile information
-            profile.setName(etProfileName.getText().toString());
-            profile.setDetails(etProfileDetails.getText().toString());
-            profile.setImageName(spinnerImageName.getSelectedItem().toString());
+            // To retrieve list of profiles
+            String jsonGetList = sharedPref.getString("ProfileList", "");
+            Type listType = new TypeToken<List<Profile>>(){}.getType();
+            List<Profile> profileList = (List<Profile>) gson.fromJson(jsonGetList, listType);
 
-            // Store the information
-            SharedPreferences.Editor prefsEditor = sharedPref.edit();
-            json = gson.toJson(profile);
-            prefsEditor.putString("SelectedProfile", json);
-            prefsEditor.apply();
+            // Update profile
+            for (Profile p: profileList) {
+
+                if(p.getId().equals(profile.getId()) && p.getName().equals(profile.getName()) && p.getDetails().equals(profile.getDetails()) && p.getImageName().equals(profile.getImageName())) {
+                    //profile.setId("0");
+                    profile.setName(etProfileName.getText().toString());
+                    profile.setDetails(etProfileDetails.getText().toString());
+                    profile.setImageName(spinnerImageName.getSelectedItem().toString());
+                    //p.setId("0");
+                    p.setName(etProfileName.getText().toString());
+                    p.setDetails(etProfileDetails.getText().toString());
+                    p.setImageName(spinnerImageName.getSelectedItem().toString());
+
+                    //Update current profile
+                    SharedPreferences.Editor prefsEditor = sharedPref.edit();
+                    String jsonUpdateProfile = gson.toJson(profile);
+                    prefsEditor.putString("SelectedProfile", jsonUpdateProfile);
+                    prefsEditor.apply();
+
+                    // Update list of profiles
+                    String jsonUpdateList = gson.toJson(profileList);
+                    prefsEditor.putString("ProfileList", jsonUpdateList);
+                    prefsEditor.apply();
+                }
+            }
         }
         catch(Exception exception){
             System.out.println("EditProfileFragment Error: " + exception.getMessage());

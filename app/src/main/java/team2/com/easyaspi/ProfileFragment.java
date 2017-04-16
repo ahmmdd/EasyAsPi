@@ -22,6 +22,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.lang.reflect.Type;
+import java.util.List;
 
 import static android.content.Context.MODE_PRIVATE;
 
@@ -42,7 +46,7 @@ public class ProfileFragment extends Fragment {
         }
 
         // Set up a fall back profile
-        Profile profile = new Profile("0", "Profile 0", "This is profile 0", "logo");
+        Profile profile = null;
 
         // Get components
         TextView tvProfileName = (TextView) view.findViewById(R.id.profile_view_tvName);
@@ -87,7 +91,7 @@ public class ProfileFragment extends Fragment {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 // Call the delete profile method
-                                //DeleteProfile();
+                                DeleteProfile();
 
                                 // Return to the start activity
                                 Intent intent = new Intent(context, StartActivity.class);
@@ -130,5 +134,36 @@ public class ProfileFragment extends Fragment {
             e.printStackTrace();
             System.out.println("Error: " + e.getMessage());
         }
+    }
+
+    public void DeleteProfile() {
+        // Get profile list
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this.getContext());
+        Gson gson = new Gson();
+        String jsonGetList = sharedPref.getString("ProfileList", "");
+        Type listType = new TypeToken<List<Profile>>(){}.getType();
+        List<Profile> profileList = (List<Profile>) gson.fromJson(jsonGetList, listType);
+
+        // Get current profile
+        String jsonGetProfile = sharedPref.getString("SelectedProfile", "");
+        Profile profile = gson.fromJson(jsonGetProfile, Profile.class);
+
+        // Find current profile in the list
+        int count = 0, position = -1;
+        for (Profile p: profileList) {
+            if(p.getId().equals(profile.getId()) && p.getName().equals(profile.getName()) && p.getDetails().equals(profile.getDetails()) && p.getImageName().equals(profile.getImageName())) {
+                position = count;
+            }
+            count++;
+        }
+
+        // Remove the current profile from the list
+        profileList.remove(position);
+
+        // Update the list of profiles
+        SharedPreferences.Editor prefsEditor = sharedPref.edit();
+        String jsonUpdateList = gson.toJson(profileList);
+        prefsEditor.putString("ProfileList", jsonUpdateList);
+        prefsEditor.apply();
     }
 }
