@@ -18,6 +18,10 @@
             android:id="@+id/nav_lesson"
             android:icon="@android:drawable/ic_menu_edit"
             android:title="Select a Lesson" />
+        <item
+            android:id="@+id/nav_notification"
+            android:icon="@android:drawable/ic_notification_overlay"
+            android:title="View Notification" />
     </group>
     <item android:title="Logout">
         <menu>

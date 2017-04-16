@@ -25,14 +25,22 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
+
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
 
+
 import java.util.ArrayList;
 import java.util.List;
 
+import cz.msebera.android.httpclient.Header;
+import cz.msebera.android.httpclient.message.BasicHeader;
+import team2.com.easyaspi.adaptersPackage.NotificationAdapter;
+import team2.com.easyaspi.apiPackage.ApiCallTasks;
+import team2.com.easyaspi.apiPackage.NotificationBean;
+import team2.com.easyaspi.apiPackage.NotificationFragment;
 import team2.com.easyaspi.databasePackage.ChapterBean;
 import team2.com.easyaspi.databasePackage.TopicBean;
 import team2.com.easyaspi.lessonsPackage.LessonsFragment;
@@ -45,6 +53,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     // Set String
     private String sPreviousTitle = "";
     private String sTitle = "";
+
 
     /*
     *   ON CREATE METHOD
@@ -103,6 +112,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
     }
+
 
     @Override
     public void onBackPressed() {
@@ -171,6 +181,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.nav_lesson:
                 fragmentClass = LessonsFragment.class;
                 sTitle = "Lessons";
+                break;
+            case R.id.nav_notification:
+                fragmentClass = NotificationFragment.class;
+                sTitle= "Notifications";
                 break;
             case R.id.nav_logout:
                 // When user presses Logout button
